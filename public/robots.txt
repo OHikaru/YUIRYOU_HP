@@ -1,0 +1,14 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Optional: keep this line commented until policy is decided
+# User-agent: GPTBot
+# Disallow: /

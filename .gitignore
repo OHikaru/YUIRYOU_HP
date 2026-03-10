@@ -1,0 +1,13 @@
+node_modules
+.next
+.next-build
+.next-release
+out
+coverage
+.DS_Store
+*.log
+.env
+.env.local
+.env.production
+.env.development
+.sanity
