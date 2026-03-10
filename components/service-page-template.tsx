@@ -141,12 +141,12 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
         <div className="shell cta-banner">
           <div>
             <p className="eyebrow">ご相談</p>
-            <h2>まずは無料相談か診断パックから始めてください</h2>
-            <p>何を頼むべきか曖昧な段階でも問題ありません。現状と優先順位を整理し、最適なプランを提案します。</p>
+            <h2>法人向け無料相談で、優先順位と支援範囲を整理します</h2>
+            <p>現状の資料、研究計画、発信課題を共有いただければ、事業フェーズに応じた論点整理と想定プランをご案内します。</p>
           </div>
           <div className="hero-actions">
-            <Link href="/contact" className="button button--solid">無料相談を申し込む</Link>
-            <Link href="/#pricing" className="button button--ghost button--light">診断パックと料金表を見る</Link>
+            <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
+            <Link href="/#pricing" className="button button--ghost button--light">料金プランを見る</Link>
           </div>
         </div>
       </section>

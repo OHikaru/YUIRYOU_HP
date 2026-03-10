@@ -81,9 +81,9 @@ export function ContactForm() {
       ))}
       <label className="consent-check">
         <input name="consent" type="checkbox" required />
-        <span>個人情報保護方針に同意する</span>
+        <span>個人情報保護指針に同意する</span>
       </label>
-      <button type="submit" className="button button--solid button--full">無料相談を申し込む</button>
+      <button type="submit" className="button button--solid button--full">法人向け無料相談を申し込む</button>
     </form>
   );
 }

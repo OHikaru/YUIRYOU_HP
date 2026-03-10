@@ -29,7 +29,7 @@ export function SiteFooter() {
           <ul className="footer-list">
             <li><Link href="/team">チーム紹介</Link></li>
             <li><Link href="/insights">インサイト / コラム</Link></li>
-            <li><Link href="/privacy-policy">個人情報保護方針</Link></li>
+            <li><Link href="/privacy-policy">個人情報保護指針</Link></li>
             <li><Link href="/disclaimer">免責事項</Link></li>
           </ul>
         </div>
