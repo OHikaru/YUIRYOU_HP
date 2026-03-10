@@ -1,8 +1,8 @@
-import path from "node:path";
+﻿import path from "node:path";
 
 const nextConfig = {
   reactStrictMode: true,
-  distDir: ".next-release",
+  distDir: process.env.VERCEL ? ".next" : ".next-release",
   images: {
     remotePatterns: [
       {
