@@ -36,7 +36,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
       <div className="page-hero page-hero--compact">
         <div className="shell">
           <Breadcrumbs items={[{ href: service.path, label: service.title }]} />
-          <p className="eyebrow">Service</p>
+          <p className="eyebrow">支援サービス</p>
           <h1>{service.title}</h1>
           <div className="three-line-summary">
             {service.summary.map((line) => (
@@ -125,7 +125,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
 
       <section className="section">
         <div className="shell narrow-shell">
-          <SectionLead title="FAQ" />
+          <SectionLead title="よくある質問" />
           <div className="faq-list">
             {service.faq.map((item) => (
               <details key={item.question} className="faq-item">
@@ -140,7 +140,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
       <section className="section section--cta">
         <div className="shell cta-banner">
           <div>
-            <p className="eyebrow">CTA</p>
+            <p className="eyebrow">ご相談</p>
             <h2>まずは無料相談か診断パックから始めてください</h2>
             <p>何を頼むべきか曖昧な段階でも問題ありません。現状と優先順位を整理し、最適なプランを提案します。</p>
           </div>

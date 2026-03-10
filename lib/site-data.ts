@@ -1,4 +1,4 @@
-import {
+﻿import {
   articleMap,
   articles,
   comparisonRows,
@@ -36,9 +36,16 @@ function normalizeService(service: Omit<ServiceDetail, "path"> & { path?: string
   };
 }
 
-function normalizeImagePath(image: string | null | undefined) {
-  if (!image) return "/images/hero-medical-consulting.svg";
-  return image;
+function normalizeTeamImagePath(memberId: string, image: string | null | undefined) {
+  if (image) return image;
+
+  const fallbackImageMap: Record<string, string> = {
+    "obgyn-ai": "/images/team/team-obgyn-ai.svg",
+    "obgyn-rct": "/images/team/team-obgyn-rct-english.svg",
+    "rehab-media": "/images/team/team-rehab-youtube-ad.svg",
+  };
+
+  return fallbackImageMap[memberId] ?? "/images/hero-medical-consulting.svg";
 }
 
 export async function getSiteSettings(): Promise<SiteSettingsOverride> {
@@ -83,7 +90,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     if (!data?.length) return teamMembers;
     return data.map((member) => ({
       ...member,
-      image: normalizeImagePath(member.image),
+      image: normalizeTeamImagePath(member.id, member.image),
       imageAlt: member.imageAlt || `${member.name}のプロフィール写真`,
     }));
   } catch {
@@ -130,25 +137,15 @@ export async function getArticleBySlug(slug: string): Promise<ArticleDetail | nu
 }
 
 export async function getHomePageData() {
-  const [settings, cmsTeamMembers, cmsServices] = await Promise.all([
+  const [settings, cmsTeamMembers] = await Promise.all([
     getSiteSettings(),
     getTeamMembers(),
-    getServices(),
   ]);
-
-  const homeSupportAreas = cmsServices.length
-    ? cmsServices.slice(0, 5).map((service, index) => ({
-        title: service.title,
-        href: service.path,
-        description: service.summary?.[0] ?? service.metadataDescription,
-        icon: supportAreas[index]?.icon ?? "/images/icons/icon-medical-advisory.svg",
-      }))
-    : supportAreas;
 
   return {
     settings,
     teamMembers: cmsTeamMembers,
-    supportAreas: homeSupportAreas,
+    supportAreas,
     comparisonRows,
     fitCategories,
     supportFlow,

@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { NextStudio } from "next-sanity/studio";
+﻿import { NextStudio } from "next-sanity/studio";
 
 import config from "@/sanity.config";
 
@@ -16,7 +15,7 @@ export default function StudioPage() {
             `.env.local` または Vercel の環境変数に `NEXT_PUBLIC_SANITY_PROJECT_ID` と `NEXT_PUBLIC_SANITY_DATASET` を設定してください。
           </p>
           <p className="hero-copy">
-            設定後に再度このページを開くと、CMS管理画面が表示されます。詳しい手順は <Link href="/insights">運用ガイド</Link> ではなく、リポジトリ内の手順書を参照してください。
+            設定後に再度このページを開くと、CMS管理画面が表示されます。環境変数を更新した場合は、開発サーバーの再起動も確認してください。
           </p>
         </div>
       </main>

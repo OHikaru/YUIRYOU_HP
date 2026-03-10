@@ -1,4 +1,4 @@
-export const siteConfig = {
+﻿export const siteConfig = {
   brandName: "医療コンサルティングチーム",
   brandNameEn: "Medical Consulting Team",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://yuiryou.vercel.app",
@@ -178,7 +178,7 @@ export const teamMembers: TeamMember[] = [
     shortRole: "AI・情報品質",
     bio: "医療AI活用と医療情報品質の設計を担当。AIを使う前提でも、医療情報の正確性と運用ルールを崩さない体制づくりに強みがあります。",
     specialties: ["医療AI活用方針", "医療情報品質レビュー", "LP / 営業資料レビュー", "女性ヘルスケア領域"],
-    researchHighlights: ["臨床研究経験をもとに論点整理を支援", "未確定実績は公開しない段階公開方針"],
+    researchHighlights: ["臨床研究経験をもとに論点整理を支援", "女性ヘルスケア領域の情報整理と監修に対応"],
     supportThemes: ["AI導入時の監修フロー", "医療表現リスク整理", "コンテンツ品質基準の策定"],
     image: "/images/team/team-obgyn-ai.svg",
     imageAlt: "産婦人科医Aのプロフィールイメージ",
@@ -612,7 +612,7 @@ export const articles: ArticleDetail[] = [
     learnings: ["AI専用裏技に頼らない理由", "基本の整え方", "新規サイトの期待値管理"],
     conclusion: "AI検索を意識するほど、通常のSEOと説明責任の土台を丁寧に整える必要があります。",
     background: ["医療領域では、検索順位だけでなく、AI要約時に誤解されにくい構造が重要です。"],
-    actions: ["3行要約を置く", "FAQをvisible textで載せる", "著者・監修者ページを整備する"],
+    actions: ["3行要約を置く", "FAQをページ上で見える形で載せる", "著者・監修者ページを整備する"],
     faq: globalFaq.slice(0, 2),
   },
   {
@@ -647,3 +647,4 @@ export const articles: ArticleDetail[] = [
 
 export const serviceMap = new Map(services.map((service) => [service.slug, service]));
 export const articleMap = new Map(articles.map((article) => [article.slug, article]));
+

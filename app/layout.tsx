@@ -1,6 +1,5 @@
 ﻿import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -59,17 +58,6 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <div className="site-frame">
           <SiteHeader />
           <main id="main-content">{children}</main>
-          <section className="section section--support-note">
-            <div className="shell support-note">
-              <div>
-                <p className="eyebrow">運用メモ</p>
-                <h2>初期受注はSEO待ちにしない設計です</h2>
-              </div>
-              <p>
-                紹介、直接営業、メール営業、Google検索広告、note、LinkedIn、X、YouTubeからの流入を、すべて同じLPで受け止められるようにしています。 <Link href="/insights">インサイト一覧</Link> と <Link href="/team">チーム紹介</Link> を後から厚くすることで、検索資産化も進められます。
-              </p>
-            </div>
-          </section>
           <SiteFooter />
         </div>
       </body>

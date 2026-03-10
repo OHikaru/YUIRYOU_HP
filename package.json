@@ -9,9 +9,15 @@
     "start": "next start",
     "lint": "eslint .",
     "sanity": "sanity dev",
-    "sanity:deploy": "sanity deploy"
+    "sanity:deploy": "sanity deploy",
+    "sanity:seed": "node scripts/seed-sanity.cjs"
   },
-  "keywords": ["nextjs", "medical-consulting", "landing-page", "sanity"],
+  "keywords": [
+    "nextjs",
+    "medical-consulting",
+    "landing-page",
+    "sanity"
+  ],
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
