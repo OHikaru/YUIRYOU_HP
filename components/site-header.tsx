@@ -1,5 +1,7 @@
-﻿import Link from "next/link";
+﻿import Image from "next/image";
+import Link from "next/link";
 
+import logo from "@/images/YUIRYOU_logo.png";
 import { siteConfig } from "@/content/site";
 
 const navItems = [
@@ -14,7 +16,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="shell site-header__inner">
         <Link href="/" className="brand-mark" aria-label="トップページへ戻る">
-          <span className="brand-mark__symbol">YR</span>
+          <Image src={logo} alt="YUIRYOU株式会社のロゴ" className="brand-mark__logo" priority />
           <span>
             <strong>{siteConfig.brandName}</strong>
             <small>法人向け医療コンサルティング</small>

@@ -53,6 +53,8 @@ export const articlesQuery = groq`*[_type == "article"] | order(publishedAt desc
   conclusion,
   background,
   actions,
+  tags,
+  sources,
   faq,
   "slug": slug.current,
   "authorId": author->id,

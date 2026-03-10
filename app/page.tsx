@@ -15,6 +15,12 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function HomePage() {
   const { settings, teamMembers, supportAreas, comparisonRows, fitCategories, supportFlow, timelinePhases } = await getHomePageData();
+  const pricingCardClasses = [
+    "pricing-card--diagnostic",
+    "pricing-card--advisory",
+    "pricing-card--growth",
+    "pricing-card--strategic",
+  ];
 
   const homeSchema = {
     "@context": "https://schema.org",
@@ -168,8 +174,8 @@ export default async function HomePage() {
         <div className="shell">
           <SectionLead eyebrow="料金" title="料金表" description="案件の難易度と関与範囲に応じて調整はありますが、目安が見えないまま商談に進ませないため標準価格を公開します。" />
           <div className="card-grid card-grid--pricing">
-            {(settings.pricingPlans ?? []).map((plan) => (
-              <article key={plan.name} className="panel panel--pricing">
+            {(settings.pricingPlans ?? []).map((plan, index) => (
+              <article key={plan.name} className={`panel panel--pricing ${pricingCardClasses[index] ?? ""}`}>
                 <p className="eyebrow">{plan.name}</p>
                 <h3>{plan.price}</h3>
                 <p className="pricing-note">{plan.note}</p>
@@ -217,4 +223,3 @@ export default async function HomePage() {
     </>
   );
 }
-

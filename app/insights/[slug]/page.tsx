@@ -42,6 +42,7 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
     description: article.summary,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
+    keywords: article.tags,
     author: { "@type": "Person", name: author?.name ?? fallbackName, description: author?.role ?? fallbackRole },
     publisher: { "@type": "Organization", name: siteConfig.brandName, url: absoluteUrl("/") },
     mainEntityOfPage: absoluteUrl(`/insights/${article.slug}`),
@@ -51,8 +52,8 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
     <>
       <JsonLd data={articleSchema} />
       <article>
-        <div className="page-hero page-hero--compact">
-          <div className="shell">
+        <div className="page-hero page-hero--compact article-hero">
+          <div className="shell narrow-shell">
             <Breadcrumbs items={[{ href: "/insights", label: "インサイト / コラム" }, { href: `/insights/${article.slug}`, label: article.title }]} />
             <p className="eyebrow">{article.category}</p>
             <h1>{article.title}</h1>
@@ -61,72 +62,79 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
               <span>{author?.name ?? fallbackName}</span>
               <span>{fallbackRole}</span>
             </div>
+            <div className="tag-row tag-row--hero">
+              {article.tags.map((tag) => <span key={tag} className="tag-pill tag-pill--light">{tag}</span>)}
+            </div>
             <p className="hero-copy">{article.summary}</p>
           </div>
         </div>
 
-        <section className="section">
-          <div className="shell narrow-shell">
-            <SectionLead eyebrow="TL;DR" title="この記事の要点" />
-            <ul className="check-list">
-              {article.tldr.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        </section>
-
-        <section className="section section--muted">
-          <div className="shell narrow-shell">
-            <SectionLead title="この記事でわかること" />
-            <ul className="check-list">
-              {article.learnings.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="shell narrow-shell prose-block">
-            <SectionLead title="結論" />
-            <p>{article.conclusion}</p>
-          </div>
-        </section>
-
-        <section className="section section--muted">
-          <div className="shell narrow-shell prose-block">
-            <SectionLead title="背景" />
-            {article.background.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          </div>
-        </section>
-
-        <section className="section">
-          <div className="shell narrow-shell">
-            <SectionLead title="具体策" />
-            <ul className="stack-list">
-              {article.actions.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </div>
-        </section>
-
-        <section className="section section--muted">
-          <div className="shell narrow-shell">
-            <SectionLead title="FAQ" />
-            <div className="faq-list">
-              {article.faq.map((item) => (
-                <details key={item.question} className="faq-item">
-                  <summary>{item.question}</summary>
-                  <p>{item.answer}</p>
-                </details>
-              ))}
+        <section className="section article-section">
+          <div className="shell narrow-shell article-stack">
+            <div className="article-panel article-panel--lead">
+              <SectionLead eyebrow="TL;DR" title="この記事の要点" />
+              <ul className="check-list">
+                {article.tldr.map((item) => <li key={item}>{item}</li>)}
+              </ul>
             </div>
-          </div>
-        </section>
 
-        <section className="section">
-          <div className="shell narrow-shell panel panel--soft">
-            <p className="eyebrow">著者・監修者</p>
-            <h2>{author?.name ?? fallbackName}</h2>
-            <p>{author?.role ?? fallbackRole}</p>
-            <p>{author?.bio ?? fallbackBio}</p>
-            <Link href="/contact" className="button button--solid">無料相談を申し込む</Link>
+            <div className="article-panel">
+              <SectionLead title="この記事でわかること" />
+              <ul className="check-list">
+                {article.learnings.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+
+            <div className="article-panel prose-block">
+              <SectionLead title="結論" />
+              <p>{article.conclusion}</p>
+            </div>
+
+            <div className="article-panel prose-block">
+              <SectionLead title="背景" />
+              {article.background.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+
+            <div className="article-panel">
+              <SectionLead title="具体策" />
+              <ul className="stack-list">
+                {article.actions.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+
+            <div className="article-panel article-panel--source">
+              <SectionLead title="参考・出典" description="2026年3月10日時点で確認した一次情報・公式情報です。" />
+              <ul className="source-list">
+                {article.sources.map((source) => (
+                  <li key={source.href}>
+                    <a href={source.href} target="_blank" rel="noreferrer">{source.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="article-panel">
+              <SectionLead title="FAQ" />
+              <div className="faq-list">
+                {article.faq.map((item) => (
+                  <details key={item.question} className="faq-item">
+                    <summary>{item.question}</summary>
+                    <p>{item.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+
+            <div className="article-panel article-panel--author">
+              <p className="eyebrow">著者・監修者</p>
+              <h2>{author?.name ?? fallbackName}</h2>
+              <p className="role-label">{author?.role ?? fallbackRole}</p>
+              <p>{author?.bio ?? fallbackBio}</p>
+              <div className="hero-actions">
+                <Link href="/team" className="button button--ghost">チームを見る</Link>
+                <Link href="/contact" className="button button--solid">無料相談を申し込む</Link>
+              </div>
+            </div>
           </div>
         </section>
       </article>

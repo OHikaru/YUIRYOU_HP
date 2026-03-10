@@ -130,6 +130,8 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetail | nu
 }
 
 export async function getArticles(): Promise<ArticleDetail[]> {
+  const allowedSlugs = new Set(articles.map((article) => article.slug));
+
   if (!sanityEnabled || !sanityClient) {
     return articles;
   }
@@ -137,7 +139,14 @@ export async function getArticles(): Promise<ArticleDetail[]> {
   try {
     const data = await sanityClient.fetch<ArticleDetail[]>(articlesQuery, {}, { next: { revalidate: 60 } });
     if (!data?.length) return articles;
-    return data;
+    return data
+      .filter((article) => allowedSlugs.has(article.slug))
+      .map((article) => ({
+        ...article,
+        tags: article.tags ?? [],
+        sources: article.sources ?? [],
+        faq: article.faq ?? [],
+      }));
   } catch {
     return articles;
   }

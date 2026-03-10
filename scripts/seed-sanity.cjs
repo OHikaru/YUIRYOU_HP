@@ -64,6 +64,15 @@ function pricingItems(items) {
   }));
 }
 
+function sourceItems(items) {
+  return items.map((item) => ({
+    _type: 'articleSource',
+    _key: stableKey(`source:${item.href}`),
+    label: item.label,
+    href: item.href,
+  }));
+}
+
 async function main() {
   const env = loadEnv(path.join(process.cwd(), '.env.local'));
   const token = env.SANITY_API_WRITE_TOKEN || env.SANITY_API_READ_TOKEN;
@@ -182,6 +191,8 @@ async function main() {
     conclusion: article.conclusion,
     background: article.background,
     actions: article.actions,
+    tags: article.tags,
+    sources: sourceItems(article.sources),
     faq: faqItems(article.faq),
   }));
 

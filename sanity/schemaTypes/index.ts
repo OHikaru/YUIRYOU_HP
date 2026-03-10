@@ -22,6 +22,16 @@ const pricingPlan = defineType({
   ],
 });
 
+const articleSource = defineType({
+  name: "articleSource",
+  title: "Article Source",
+  type: "object",
+  fields: [
+    defineField({ name: "label", title: "Label", type: "string", validation: (rule) => rule.required() }),
+    defineField({ name: "href", title: "URL", type: "url", validation: (rule) => rule.required() }),
+  ],
+});
+
 const siteSettings = defineType({
   name: "siteSettings",
   title: "Site Settings",
@@ -96,8 +106,10 @@ const article = defineType({
     defineField({ name: "conclusion", title: "Conclusion", type: "text", rows: 4 }),
     defineField({ name: "background", title: "Background", type: "array", of: [defineArrayMember({ type: "text" })] }),
     defineField({ name: "actions", title: "Actions", type: "array", of: [defineArrayMember({ type: "string" })] }),
+    defineField({ name: "tags", title: "Tags", type: "array", of: [defineArrayMember({ type: "string" })] }),
+    defineField({ name: "sources", title: "Sources", type: "array", of: [defineArrayMember({ type: "articleSource" })] }),
     defineField({ name: "faq", title: "FAQ", type: "array", of: [defineArrayMember({ type: "faqItem" })] }),
   ],
 });
 
-export const schemaTypes = [faqItem, pricingPlan, siteSettings, teamMember, service, article];
+export const schemaTypes = [faqItem, pricingPlan, articleSource, siteSettings, teamMember, service, article];

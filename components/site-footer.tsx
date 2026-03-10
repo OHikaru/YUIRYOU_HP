@@ -1,5 +1,7 @@
-﻿import Link from "next/link";
+﻿import Image from "next/image";
+import Link from "next/link";
 
+import logo from "@/images/YUIRYOU_logo.png";
 import { siteConfig } from "@/content/site";
 
 export function SiteFooter() {
@@ -7,7 +9,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="shell site-footer__grid">
         <div>
-          <p className="eyebrow">{siteConfig.brandName}</p>
+          <Image src={logo} alt="YUIRYOU株式会社のロゴ" className="site-footer__logo" />
           <h2>医療監修で終わらせない、法人向け医療コンサルティング</h2>
           <p>
             本サイトは法人向けの情報提供と伴走支援を目的としています。患者個人の診療相談や個別の治療判断は行いません。

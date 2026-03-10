@@ -89,15 +89,11 @@ main { overflow: clip; }
   padding: 18px 0;
 }
 .brand-mark { display: flex; align-items: center; gap: 14px; }
-.brand-mark__symbol {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #06202e, #0f766e);
-  color: #fff7ea;
-  font-weight: 800;
+.brand-mark__logo {
+  width: 164px;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 .brand-mark strong { display: block; }
 .brand-mark small { color: var(--ink-soft); }
@@ -180,7 +176,37 @@ main { overflow: clip; }
 .panel--service { display: flex; flex-direction: column; gap: 16px; }
 .panel--dark { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.14); }
 .panel--profile { display: flex; flex-direction: column; gap: 16px; }
-.panel--pricing { background: rgba(255, 250, 241, 0.9); }
+.panel--pricing {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(18, 35, 43, 0.08);
+}
+.panel--pricing h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.pricing-card--diagnostic {
+  background: linear-gradient(180deg, rgba(254, 245, 228, 0.96), rgba(255, 255, 255, 0.88));
+  border-color: rgba(209, 143, 47, 0.28);
+}
+.pricing-card--advisory {
+  background: linear-gradient(180deg, rgba(241, 250, 248, 0.98), rgba(255, 255, 255, 0.9));
+  border-color: rgba(15, 118, 110, 0.24);
+}
+.pricing-card--growth {
+  background: linear-gradient(180deg, rgba(228, 242, 246, 0.98), rgba(255, 255, 255, 0.92));
+  border-color: rgba(17, 79, 84, 0.24);
+}
+.pricing-card--strategic {
+  background: linear-gradient(180deg, rgba(10, 37, 44, 0.98), rgba(17, 60, 70, 0.98));
+  border-color: rgba(159, 229, 210, 0.22);
+  color: #f7f4ec;
+}
+.pricing-card--strategic .eyebrow,
+.pricing-card--strategic .pricing-note,
+.pricing-card--strategic .stack-list li,
+.pricing-card--strategic h3 {
+  color: #f7f4ec;
+}
+.pricing-card--strategic .stack-list li::before {
+  background: #9fe5d2;
+}
 .panel--visual { padding: 16px; }
 .panel--accent { background: linear-gradient(160deg, rgba(15,118,110,0.1), rgba(255,255,255,0.8)); }
 .pricing-note, .role-label, .article-meta { color: var(--ink-soft); }
@@ -285,6 +311,12 @@ main { overflow: clip; }
   padding: 48px 0 30px;
   margin-top: 0;
 }
+.site-footer__logo {
+  width: 188px;
+  height: auto;
+  margin-bottom: 18px;
+  object-fit: contain;
+}
 .site-footer__grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
@@ -360,6 +392,75 @@ main { overflow: clip; }
 }
 .article-meta--hero { margin-top: 18px; color: rgba(255,255,255,0.74); }
 .panel--article h2 { font-size: 1.45rem; margin-bottom: 12px; }
+.article-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+.insights-grid { align-items: stretch; }
+.filter-row, .tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.filter-chip, .tag-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 35, 43, 0.12);
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+}
+.filter-chip.is-active {
+  background: linear-gradient(135deg, #0f766e, #114f54);
+  color: #fff;
+  border-color: transparent;
+}
+.tag-pill {
+  background: rgba(15, 118, 110, 0.08);
+  border-color: rgba(15, 118, 110, 0.12);
+  color: var(--brand-deep);
+}
+.tag-pill--light {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #fffaf1;
+}
+.tag-row--hero { margin-top: 18px; }
+.article-hero h1 { max-width: 16ch; }
+.article-section { padding-top: 36px; }
+.article-stack {
+  display: grid;
+  gap: 22px;
+}
+.article-panel {
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.article-panel--lead {
+  background: linear-gradient(180deg, rgba(241,250,248,0.98), rgba(255,255,255,0.88));
+}
+.article-panel--source {
+  background: linear-gradient(180deg, rgba(255,248,238,0.98), rgba(255,255,255,0.9));
+}
+.source-list {
+  padding-left: 18px;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.source-list a {
+  color: var(--brand-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .prose-block h2 { margin-top: 12px; margin-bottom: 12px; }
 .align-center { text-align: center; }
 

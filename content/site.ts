@@ -56,6 +56,11 @@ export type ServiceDetail = {
   metadataDescription: string;
 };
 
+export type ArticleSource = {
+  label: string;
+  href: string;
+};
+
 export type ArticleDetail = {
   slug: string;
   title: string;
@@ -68,6 +73,8 @@ export type ArticleDetail = {
   conclusion: string;
   background: string[];
   actions: string[];
+  tags: string[];
+  sources: ArticleSource[];
   faq: FaqItem[];
 };
 
@@ -134,7 +141,7 @@ export const comparisonRows = [
   { label: "AI活用設計", values: ["医療品質前提で支援", "対象外が多い", "一般的な運用提案"] },
   { label: "YouTube / 広告知見", values: ["医療表現と運用を両立", "対象外が多い", "医療表現に弱い"] },
   { label: "事業壁打ち", values: ["定例で実施", "都度相談中心", "事業理解が浅い"] },
-  { label: "継続伴走", values: ["松竹梅で継続支援", "単発が中心", "制作期間に限定"] },
+  { label: "継続伴走", values: ["診断 + 3段階プランで継続支援", "単発が中心", "制作期間に限定"] },
 ];
 
 export const fitCategories = [
@@ -241,19 +248,19 @@ export const pricingPlans = [
     features: ["課題整理シート", "競合 / 訴求 / 医療リスク棚卸し", "優先施策の提案"],
   },
   {
-    name: "梅",
+    name: "アドバイザリープラン",
     price: "月額60万円 + 初期20万円",
     note: "原則3か月契約",
     features: ["月2回定例", "月2本まで資料レビュー", "文献レビューまたは論点整理 月1テーマ"],
   },
   {
-    name: "竹",
+    name: "グロースパートナープラン",
     price: "月額100万円 + 初期30万円",
     note: "原則3か月契約",
     features: ["月4回定例", "月5本までレビュー", "研究 / PoC / AIまたは発信設計 月1テーマ"],
   },
   {
-    name: "松",
+    name: "ストラテジックパートナープラン",
     price: "月額180万円 + 初期40万円",
     note: "原則3か月契約、推奨6か月",
     features: ["週次定例 + 月次経営レビュー", "複数医師の横断関与", "大型成果物を四半期ごとに1本"],
@@ -289,7 +296,7 @@ export const globalFaq: FaqItem[] = [
   {
     question: "どのプランを選べばよいかわかりません。",
     answer:
-      "現状の課題が散らばっている場合は診断パック、定例で壁打ちしたい場合は梅、具体施策まで一緒に進めたい場合は竹、重要局面で横断支援が必要な場合は松を目安にしてください。",
+      "現状の課題が散らばっている場合は診断パック、定例で壁打ちしたい場合はアドバイザリープラン、施策実行まで一緒に進めたい場合はグロースパートナープラン、重要局面で経営レベルの伴走が必要な場合はストラテジックパートナープランを目安にしてください。",
   },
 ];
 
@@ -486,116 +493,82 @@ export const services: ServiceDetail[] = [
 
 export const articles: ArticleDetail[] = [
   {
-    slug: "medical-lp-checklist",
-    title: "医療系LPで最初に確認すべき10のチェックポイント",
-    category: "LP改善",
-    publishedAt: "2026-03-10",
-    authorId: "obgyn-ai",
-    summary: "医療接点のあるLPで、信頼・表現・CV導線を同時に確認するための基本チェックリスト。",
-    tldr: ["医療情報の正確性", "法人向け導線", "CTAと価格の透明性"],
-    learnings: ["最低限見るべき箇所", "事故を防ぐ観点", "営業で使えるLPにする考え方"],
-    conclusion: "最初に見るべきは、見た目よりも“誰向けか・何を提供するか・どこまで言うか”の3点です。",
-    background: ["医療接点のあるLPは、一般的なB2Bサイトよりも説明責任が重い領域です。", "そのため、デザインだけ整えても、信頼とCVは両立しません。"],
-    actions: ["Heroで法人向けを明示する", "価格感を隠さない", "FAQでよくある誤解を先回りして解消する"],
-    faq: globalFaq.slice(0, 2),
-  },
-  {
-    slug: "rct-for-startups",
-    title: "スタートアップがRCTを検討するときに先に整理すべきこと",
-    category: "臨床研究",
-    publishedAt: "2026-03-10",
-    authorId: "obgyn-rct",
-    summary: "RCTありきで考える前に、事業目的と研究目的を分けて整理するための考え方。",
-    tldr: ["目的の切り分け", "評価項目", "実行可能性"],
-    learnings: ["PoCとRCTの違い", "最初の論点整理", "社内合意の作り方"],
-    conclusion: "RCTは手段であり、先に事業上の問いと研究上の問いを分けることが重要です。",
-    background: ["スタートアップでは、研究の必要性は感じつつも、何を証明したいのかが曖昧なまま進みがちです。"],
-    actions: ["何を意思決定したいのか書き出す", "最小限のPoCで足りるかを検討する", "社外説明に必要な根拠水準を定義する"],
-    faq: globalFaq.slice(2, 4),
-  },
-  {
     slug: "medical-ai-governance",
     title: "医療AI活用で先に作るべき品質ガードレール",
     category: "医療AI",
     publishedAt: "2026-03-10",
     authorId: "obgyn-ai",
-    summary: "AI活用の前に決めるべき監修ルール、レビュー観点、責任分界の設計ポイント。",
-    tldr: ["品質基準", "レビュー運用", "責任分界"],
-    learnings: ["危ない導入パターン", "医療情報品質の守り方", "現場に落ちる運用設計"],
-    conclusion: "AI導入の成否は、モデル選定より先にレビュー体制を定義できるかで決まります。",
-    background: ["医療AIの議論では精度だけに注目しがちですが、運用フェーズでの品質管理が抜けると事故につながります。"],
-    actions: ["用途を分類する", "レビュー責任者を決める", "公開前確認の基準を文章化する"],
-    faq: globalFaq.slice(0, 3),
-  },
-  {
-    slug: "english-medical-slides",
-    title: "英語の医療ピッチ資料で崩しやすいポイント",
-    category: "英語対応",
-    publishedAt: "2026-03-10",
-    authorId: "obgyn-rct",
-    summary: "翻訳だけでは不十分な、英語の医療資料で起こりやすいズレを整理します。",
-    tldr: ["翻訳と説明は別", "根拠の置き方", "相手国の前提差"],
-    learnings: ["英語資料の落とし穴", "直訳で崩れる箇所", "レビューの進め方"],
-    conclusion: "英語資料は、言葉を置き換えるだけでなく、相手が読む順番に合わせて再構成する必要があります。",
-    background: ["海外投資家や海外パートナー向け資料では、日本語資料の単純翻訳では意図が伝わらないことがあります。"],
-    actions: ["主張と根拠を分ける", "専門用語の定義を先に置く", "英語文献との整合性を確認する"],
-    faq: globalFaq.slice(4, 6),
-  },
-  {
-    slug: "youtube-medical-editorial",
-    title: "医療YouTube運営で企画会議に入れるべき観点",
-    category: "YouTube",
-    publishedAt: "2026-03-10",
-    authorId: "rehab-media",
-    summary: "再生数だけでなく、医療表現の安全性と導線設計を両立する企画会議の型。",
-    tldr: ["企画意図", "表現リスク", "導線設計"],
-    learnings: ["会議で見るべき観点", "監修と運用の接続", "CVとのつなぎ方"],
-    conclusion: "医療YouTubeでは、企画時点で“誰に何を誤解なく伝えるか”を決めておく必要があります。",
-    background: ["医療系動画は、企画初期で表現の枠組みを決めないと、撮影後に大きな手戻りが発生します。"],
-    actions: ["ターゲットを一文で定義する", "避ける表現を先に共有する", "動画後の導線を決める"],
-    faq: globalFaq.slice(1, 4),
-  },
-  {
-    slug: "medical-ad-copy-review",
-    title: "医療広告コピーをレビューするときの順番",
-    category: "広告",
-    publishedAt: "2026-03-10",
-    authorId: "rehab-media",
-    summary: "訴求力と安全性を両立するために、広告文をどの順で見るべきかを整理します。",
-    tldr: ["主張の強さ", "根拠との距離", "誤解の余地"],
-    learnings: ["レビューの順番", "強い言葉の扱い方", "差し戻しを減らす方法"],
-    conclusion: "広告レビューでは、まず主張の強さを見て、その後に根拠と誤解可能性を確認するのが効率的です。",
-    background: ["広告コピーは短いほど強い表現になりやすく、医療接点があるほど誤解リスクが上がります。"],
-    actions: ["断定表現を洗い出す", "根拠の種類を確認する", "ランディング先との整合性を点検する"],
-    faq: globalFaq.slice(2, 5),
+    summary: "2025年のWHOとFDAの更新を踏まえると、医療AIは『精度が高いか』より先に『誰が、どの用途で、どの基準で監督するか』を決める必要があります。企業導入で最低限そろえるべき品質ガードレールを整理します。",
+    tldr: ["用途分類を先に決める", "レビュー責任者と停止条件を明文化する", "モデル更新と表示内容の変更管理を運用に入れる"],
+    learnings: ["2025年時点のWHOとFDAが重視している論点", "医療AIを社内運用に落とすための最小ルール", "営業・広報・プロダクトで共通化すべき監督項目"],
+    conclusion: "医療AIの品質管理は、モデル評価だけでは足りません。WHOは人間による監督、透明性、リスクベース運用を重視し、FDAもライフサイクル全体での変更管理と性能維持を求めています。企業実務では『用途』『責任者』『停止条件』を最初に定義するのが最短です。 [1][2][3]",
+    background: [
+      "WHOは2025年に公表した health 向け large multi-modal models のガイダンスで、医療AIの導入を単なる技術導入ではなく、倫理・安全・説明責任を含む統治課題として扱っています。とくに、高リスク用途では人間による監督、透明性、導入後モニタリングを一体で設計する必要があると整理しています。 [1]",
+      "FDAも2025年の AI-enabled device software functions に関するドラフトガイダンスで、AI機能は開発時点だけでなく、変更・学習・保守を含むライフサイクル管理で見るべきだと示しています。医療接点のある企業が生成AIを対外説明や要約に使う場合も、この発想を社内ルールへ移植した方が事故を防ぎやすいです。 [2]",
+      "さらにFDAは Predetermined Change Control Plan に関する最終ガイダンスで、変更を予定しているなら、何をどう変えて、どの検証を通して市場投入するかを先に定義すべきだと明確化しています。これは医療AIの社内運用でも『プロンプト変更』『RAGデータ差し替え』『表示UI改修』を管理対象に含めるべきだという示唆になります。 [3]"
+    ],
+    actions: [
+      "用途を『社内補助』『対外公開下書き』『医療判断補助に近い高リスク用途』に分け、用途ごとに許可範囲を決める。 [1]",
+      "レビュー責任者、レビュー観点、公開停止条件を1枚の運用基準にまとめる。最低限、誤情報、過剰表現、出典欠落、個人情報混入の停止条件は明文化する。 [1][2]",
+      "モデルやプロンプトを更新するときは、変更内容、期待する改善、再評価手順、ロールバック条件を記録する。これはFDAの変更管理思想を社内運用へ移した形です。 [2][3]",
+      "営業資料やLPにAI活用を記載する場合は、『何を自動化し、何を人が最終確認するか』を説明文として残す。透明性の欠如は信頼毀損につながります。 [1]"
+    ],
+    tags: ["医療AI", "ガバナンス", "品質管理"],
+    sources: [
+      { label: "[1] WHO: Ethics and governance of large multi-modal models for health (2025)", href: "https://www.who.int/publications/i/item/9789240103078" },
+      { label: "[2] FDA: Considerations for Artificial Intelligence-Enabled Device Software Functions (2025 draft guidance)", href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/considerations-artificial-intelligence-enabled-device-software-functions" },
+      { label: "[3] FDA: Predetermined Change Control Plan for AI-Enabled Device Software Functions", href: "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial-intelligence-enabled" }
+    ],
+    faq: [
+      {
+        question: "医療AIはまずPoCから始めれば十分ですか？",
+        answer: "PoC自体は有効ですが、公開用途に近いPoCなら、開始前に用途区分、レビュー責任者、停止条件だけは定めておくべきです。あとから統制を足す方がコストが高くなります。"
+      },
+      {
+        question: "生成AIを記事要約やFAQ作成に使う場合も同じ考え方ですか？",
+        answer: "同じです。診断補助ほど高リスクではなくても、対外公開物である以上、誤情報、誇張、出典欠落、個人情報混入の管理は必要です。"
+      }
+    ],
   },
   {
     slug: "women-health-content-strategy",
     title: "女性向けヘルスケア事業で信頼されるコンテンツ戦略",
-    category: "フェムテック",
+    category: "女性ヘルスケア",
     publishedAt: "2026-03-10",
     authorId: "obgyn-ai",
-    summary: "産婦人科医の知見を活かし、啓発と事業成果を両立するコンテンツ設計の考え方。",
-    tldr: ["共感だけで終わらせない", "専門性の見せ方", "導線設計"],
-    learnings: ["女性向け事業の注意点", "情報設計の軸", "よくある失敗"],
-    conclusion: "共感だけを前面に出すより、専門性と生活者理解を両立した方が長期的な信頼につながります。",
-    background: ["女性向けヘルスケア事業では、感情訴求が強くなりすぎると情報の精度が弱く見えることがあります。"],
-    actions: ["医師の役割を明示する", "FAQで不安を受け止める", "営業資料と記事の主張を揃える"],
-    faq: globalFaq.slice(0, 2),
-  },
-  {
-    slug: "healthcare-saas-sales-deck",
-    title: "ヘルスケアSaaSの営業資料で医療的説得力を出す方法",
-    category: "営業資料",
-    publishedAt: "2026-03-10",
-    authorId: "obgyn-ai",
-    summary: "営業資料に必要な医療観点を整理し、信頼感を上げる構成を解説します。",
-    tldr: ["主張の順番", "根拠の見せ方", "監修だけで終わらせない"],
-    learnings: ["営業資料の改善ポイント", "説明責任の作り方", "レビュー運用"],
-    conclusion: "営業資料では、医療的妥当性と事業価値を別スライドで整理すると伝わりやすくなります。",
-    background: ["ヘルスケアSaaSは、プロダクト説明だけではなく、医療接点の説明責任が成約率に影響します。"],
-    actions: ["医療的根拠を整理する", "導入意義を経営視点で言い換える", "レビュー体制を整える"],
-    faq: globalFaq.slice(0, 3),
+    summary: "女性向けヘルスケアでは、共感訴求だけでも専門情報だけでも信頼は積み上がりません。WHO、米国政府のヘルスリテラシー指針、MedlinePlusの評価基準を踏まえ、企業が信頼される情報設計を整理します。",
+    tldr: ["専門性と平易さを両立する", "情報の出典と更新責任を見える化する", "不安を煽る訴求より判断を助ける構造を優先する"],
+    learnings: ["女性向けヘルスケアで信頼を落としやすい表現", "ヘルスリテラシーに配慮した記事・LP設計", "ブランド好感と説明責任を両立する編集方針"],
+    conclusion: "信頼される女性向けヘルスケアコンテンツは、やさしい言葉で書かれているだけでは不十分です。WHOと米国政府系の指針が共通して示すのは、『理解しやすさ』『出典の明示』『更新責任の可視化』を同時に満たすことです。 [1][2][3]",
+    background: [
+      "WHOの health literacy 政策資料は、人が理解できる情報でなければ適切な判断や行動につながりにくいと整理しています。女性向けヘルスケアではとくに、生活文脈に近いテーマが多く、専門用語を残したまま感情訴求を強めると、不安だけが増幅されやすくなります。 [1]",
+      "米国保健福祉省の Health Literacy Online は、オンライン健康情報では、最初に結論を示すこと、1画面ごとに目的を絞ること、ユーザーが次に何をすべきかを明確にすることを勧めています。これはLP、記事、FAQ、資料のどれにもそのまま使える原則です。 [2]",
+      "MedlinePlus は、健康情報を評価するときの基本として『誰が書いたか』『根拠は何か』『更新日はいつか』『販売目的が強すぎないか』を確認するよう案内しています。企業サイト側から見ると、著者情報、監修者、出典、更新日、広告目的との距離感を明示するほど信頼を得やすいということです。 [3]",
+      "ACOGも2024年に birth control misinformation への声明を出し、正確な情報にアクセスできないこと自体が患者の選択をゆがめると指摘しました。女性向けヘルスケア事業では、センセーショナルな切り口より、選択の質を上げる情報提供の方が長期的なブランド価値になります。 [4]"
+    ],
+    actions: [
+      "記事とLPの冒頭3行で『誰向けか』『何が言えるか』『何は言い切れないか』を示す。理解負荷を減らし、過剰期待も抑えられます。 [1][2]",
+      "著者・監修者・参照文献・更新日を必ず表示し、医療情報と販促情報の境界を曖昧にしない。MedlinePlusが示す評価軸を、自社コンテンツの設計側で先回りして満たす考え方です。 [3]",
+      "『不安を煽ってCVを取る』より、『判断に必要な比較情報を見せる』構成に変える。女性向けヘルスケアでは、この差が信頼蓄積の分岐点になります。 [1][4]",
+      "FAQでは悩みを受け止めつつ、診断や治療判断に踏み込まない表現ラインを決めておく。ブランドとコンプラの両面で重要です。"
+    ],
+    tags: ["女性ヘルスケア", "コンテンツ戦略", "ヘルスリテラシー"],
+    sources: [
+      { label: "[1] WHO: Health literacy policy and strategy development for NCD prevention and control", href: "https://www.who.int/publications/i/item/9789240113138" },
+      { label: "[2] HHS Office of Disease Prevention and Health Promotion: Health Literacy Online", href: "https://odphp.health.gov/healthliteracyonline/" },
+      { label: "[3] MedlinePlus: Evaluating Internet Health Information", href: "https://medlineplus.gov/webeval/webeval.html" },
+      { label: "[4] ACOG statement on birth control misinformation (2024)", href: "https://www.acog.org/news/news-releases/2024/06/acog-statement-on-congressional-action-regarding-birth-control-misinformation" }
+    ],
+    faq: [
+      {
+        question: "専門的に書くほど信頼されるわけではないのですか？",
+        answer: "いいえ。専門性は必要ですが、読者が理解できない形で提示すると、信頼より離脱を招きます。専門性は『やさしく正確に説明できること』で伝える方が有効です。"
+      },
+      {
+        question: "女性向けヘルスケアでは共感訴求を弱めるべきですか？",
+        answer: "弱める必要はありません。ただし、共感訴求の直後に根拠、選択肢、相談先を示し、感情だけで意思決定させない構造にするべきです。"
+      }
+    ],
   },
   {
     slug: "poc-to-paper",
@@ -603,27 +576,40 @@ export const articles: ArticleDetail[] = [
     category: "論文化",
     publishedAt: "2026-03-10",
     authorId: "obgyn-rct",
-    summary: "PoC止まりにしないための記録・評価・資料化のポイントをまとめます。",
-    tldr: ["最初の記録設計", "評価項目", "論文化を見据えた運用"],
-    learnings: ["PoCで残すべき情報", "論文化の下準備", "事業資料との接続"],
-    conclusion: "PoCを論文化したいなら、実施前から“何を記録するか”を決めておく必要があります。",
-    background: ["PoCは実施後に振り返ると、記録不足で使えるデータが少ないことがよくあります。"],
-    actions: ["目的と評価項目を先に定義する", "保管ルールを決める", "中間レビューを入れる"],
-    faq: globalFaq.slice(2, 4),
-  },
-  {
-    slug: "medical-pricing-transparency",
-    title: "高単価の医療コンサルで価格公開が有効な理由",
-    category: "価格設計",
-    publishedAt: "2026-03-10",
-    authorId: "rehab-media",
-    summary: "価格を隠さずに出すことで、商談の質を上げる考え方を整理します。",
-    tldr: ["価格公開の意味", "商談の前提合わせ", "失注の質改善"],
-    learnings: ["価格公開のメリット", "高単価サービスの見せ方", "CVの質の作り方"],
-    conclusion: "価格公開はCV数を減らす可能性がありますが、商談の解像度を上げる点で有効です。",
-    background: ["高単価支援では、価格を伏せたまま問い合わせを増やしても、初回商談でミスマッチが起きやすくなります。"],
-    actions: ["価格と成果物をセットで見せる", "対象外を明記する", "プラン差分を言語化する"],
-    faq: globalFaq.slice(3, 6),
+    summary: "PoCを実施しても、記録設計と公開方針が弱いと論文化まで届きません。ICMJE、ClinicalTrials.gov、SPIRIT-CONSORT 2025、CONSORT pilot extensionを踏まえ、事業に効く論文化の下準備を整理します。",
+    tldr: ["PoC前に公開と記録の前提を決める", "プロトコル・評価項目・解析計画を残す", "登録・報告・原稿化を同じ流れで設計する"],
+    learnings: ["PoCが論文化できなくなる典型要因", "2026年時点で押さえるべき投稿・報告の基礎", "営業資料に使える形で研究を残す方法"],
+    conclusion: "PoCを論文化したいなら、実施後ではなく実施前から『何を公開し、何を記録し、どの形式で報告するか』を決めておく必要があります。ICMJE、ClinicalTrials.gov、SPIRIT-CONSORT 2025はいずれも、この前倒し設計を前提にしています。 [1][2][3][4]",
+    background: [
+      "ICMJE Recommendations は、著者資格や利益相反だけでなく、研究報告全体における透明性と完全性を重視しています。2026年1月更新でも、報告の一貫性と再現可能性を支える運用が前提であることは変わっていません。 [1][2]",
+      "ClinicalTrials.gov は、適用対象試験に関する登録と結果報告の要件を明示しており、研究が外部説明や学術公表に耐えるかは、開始前の登録・計画・評価項目の整理と強く結びついています。PoC段階でも『将来公開するなら何を残すか』の視点が必要です。 [3]",
+      "SPIRIT-CONSORT 2025 は、プロトコルと最終報告を別物として扱わず、計画時点から報告の再利用可能性を高める方向に整理しています。PoCから論文化を見据えるなら、プロトコル、評価指標、解析方針、欠測時の扱いを早い段階で文章化した方がよいです。 [4]",
+      "また、CONSORT の pilot and feasibility trials extension は、小規模試験でも『何を学ぶための試験か』を明確にし、効果の断定ではなく実行可能性の検証として報告することを求めています。PoCを過大評価せず、次段階の意思決定材料として位置づける姿勢が重要です。 [5]"
+    ],
+    actions: [
+      "PoC開始前に、研究目的、事業目的、主要評価項目、副次評価項目、解析責任者を1枚の研究メモにまとめる。後から原稿化しやすくなります。 [1][4]",
+      "適用対象になりうる試験は登録要件を早めに確認し、少なくとも『いつ公開するか』『どの結果をどこまで出すか』を事前に決める。 [3]",
+      "PoCの報告では、効果の大きさを誇張せず、実行可能性、運用課題、次試験で改善すべき点を明確に書く。pilot extension の考え方に沿うと、次フェーズの説得力が上がります。 [5]",
+      "論文化を見据えるなら、図表の元データ、版管理、逸脱事項、欠測理由を残す。営業資料には要約版を使い、学術報告にはフルログを使う二層構造が実務的です。"
+    ],
+    tags: ["PoC", "論文化", "臨床研究"],
+    sources: [
+      { label: "[1] ICMJE Recommendations", href: "https://www.icmje.org/recommendations/" },
+      { label: "[2] ICMJE news: Updated Recommendations (January 2026)", href: "https://www.icmje.org/news-and-editorials/updated_recommendations_jan2026.html" },
+      { label: "[3] ClinicalTrials.gov: Reporting Requirements", href: "https://clinicaltrials.gov/policy/reporting-requirements" },
+      { label: "[4] CONSORT-SPIRIT: Published statements (2025 update)", href: "https://www.consort-spirit.org/published-statements" },
+      { label: "[5] BMJ: CONSORT extension to randomised pilot and feasibility trials", href: "https://www.bmj.com/content/355/bmj.i5239" }
+    ],
+    faq: [
+      {
+        question: "PoCは小規模でも論文化できますか？",
+        answer: "可能です。ただし『有効性を証明した』と強く言うのではなく、実行可能性、運用性、次試験の設計示唆として整理する方が通りやすいです。"
+      },
+      {
+        question: "まず営業資料を優先したい場合でも論文化前提で動くべきですか？",
+        answer: "はい。営業資料優先でも、元データ、評価項目、逸脱記録を最初から残しておけば、後で論文化や対外説明へ転用しやすくなります。"
+      }
+    ],
   },
   {
     slug: "medical-seo-aieo-basics",
@@ -631,41 +617,38 @@ export const articles: ArticleDetail[] = [
     category: "SEO/AIEO",
     publishedAt: "2026-03-10",
     authorId: "obgyn-ai",
-    summary: "AI検索時代でも変わらない、可視テキスト・構造・著者情報の重要性を解説します。",
-    tldr: ["通常SEOの徹底", "著者情報", "結論先出し"],
-    learnings: ["AI専用裏技に頼らない理由", "基本の整え方", "新規サイトの期待値管理"],
-    conclusion: "AI検索を意識するほど、通常のSEOと説明責任の土台を丁寧に整える必要があります。",
-    background: ["医療領域では、検索順位だけでなく、AI要約時に誤解されにくい構造が重要です。"],
-    actions: ["3行要約を置く", "FAQをページ上で見える形で載せる", "著者・監修者ページを整備する"],
-    faq: globalFaq.slice(0, 2),
-  },
-  {
-    slug: "medical-content-ops",
-    title: "医療コンテンツ運用でレビューを詰まらせない体制設計",
-    category: "運用設計",
-    publishedAt: "2026-03-10",
-    authorId: "rehab-media",
-    summary: "制作・監修・公開のあいだでボトルネックを減らすための運用フローを解説します。",
-    tldr: ["役割分担", "レビュー基準", "差し戻し削減"],
-    learnings: ["運用で詰まる箇所", "決めておくべき基準", "継続運用の現実解"],
-    conclusion: "レビューの速度は、担当者の頑張りよりも、先に決めた基準の質で決まります。",
-    background: ["医療コンテンツでは、毎回ゼロから議論すると、レビュー待ちが積み上がりやすくなります。"],
-    actions: ["レビュー観点を文書化する", "差し戻し理由を分類する", "月次で改善テーマを更新する"],
-    faq: globalFaq.slice(1, 3),
-  },
-  {
-    slug: "overseas-healthcare-communication",
-    title: "海外向けヘルスケア説明で誤解を減らす表現整理",
-    category: "海外展開",
-    publishedAt: "2026-03-10",
-    authorId: "obgyn-rct",
-    summary: "英語だけでなく、海外向け説明の構造そのものを整えるための視点。",
-    tldr: ["背景説明", "根拠の順序", "相手の前提差"],
-    learnings: ["海外向け説明の難しさ", "英語資料との違い", "説明責任の整理"],
-    conclusion: "海外向け説明は、単なる翻訳ではなく、相手が前提としていない文脈を補う設計が必要です。",
-    background: ["国内では通じる背景説明も、海外では前提知識が共有されていない場合があります。"],
-    actions: ["前提条件を文章化する", "根拠ソースを整理する", "FAQを先回りで置く"],
-    faq: globalFaq.slice(4, 6),
+    summary: "AI検索時代でも、医療領域で効くのは小手先のAIEO対策ではありません。Google Search Central の公式方針を前提に、記事構造、著者情報、構造化データ、FAQの整え方を実務向けに整理します。",
+    tldr: ["AIEOの近道はなく、people-first content が土台", "Article と ProfilePage を適切に実装する", "著者・監修者・更新日・FAQを可視テキストで整える"],
+    learnings: ["Google公式資料から逆算したAIEOの現実解", "医療記事で著者情報が重要な理由", "構造化データと本文構造をどうそろえるか"],
+    conclusion: "Googleは『AIEO』という別ルールを公開していません。実務上の正解は、people-first content、明確な著者情報、Article / ProfilePage の構造化データ、読みやすい本文構造を徹底することです。医療領域ほど、この基礎がそのままAI要約時の強さにつながります。 [1][2][3]",
+    background: [
+      "Google Search Central は、検索評価の起点として people-first content を繰り返し示しています。つまり、検索エンジン向けの不自然な最適化ではなく、読者の疑問に対して明確で役立つ内容を出すことが前提です。医療領域では、とくに誰が書いたのか、どの専門性にもとづくのかが重要になります。 [1]",
+      "Article structured data のドキュメントでは、headline、image、datePublished、dateModified、author といった基本項目を整えるよう案内されています。これは検索結果の見え方だけでなく、記事情報を機械が解釈しやすくする最低限の整備でもあります。 [2]",
+      "ProfilePage structured data は、著者や監修者の専門性を独立したページで示す設計に向いています。医療コンテンツでは、記事単体よりも『誰が責任を持つのか』の情報が信頼形成に効きやすいため、チームページと記事ページを内部リンクでつなぐ構成が合理的です。 [3]",
+      "したがって、AIEOを名乗る特殊施策より、冒頭3行要約、見出し構造、FAQの可視化、著者ページ、更新日、構造化データの整備をやり切る方が成果につながります。これは Google の公式資料からの実務的な推論です。 [1][2][3]"
+    ],
+    actions: [
+      "記事冒頭に『誰向けか』『結論』『何がわかるか』を3行で置く。AI要約と人間の初読の両方に効きます。 [1]",
+      "Article 構造化データでタイトル、公開日、更新日、著者を埋め、著者ページには ProfilePage を実装する。本文と構造化データの不一致は避ける。 [2][3]",
+      "FAQは隠しテキストではなく、実際のページ本文に見える形で置く。検索にもAI要約にも、可視テキストの方が扱いやすいです。これは公式資料にも整合する実務判断です。 [1][2]",
+      "医療領域では、記事とチームページを相互リンクし、著者の専門性と責任範囲を示す。E-E-A-T の専用設定ではなく、読者に説明責任を果たす基本設計として行うべきです。 [1][3]"
+    ],
+    tags: ["SEO", "AIEO", "コンテンツ設計"],
+    sources: [
+      { label: "[1] Google Search Central: Creating helpful, reliable, people-first content", href: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content" },
+      { label: "[2] Google Search Central: Article structured data", href: "https://developers.google.com/search/docs/appearance/structured-data/article" },
+      { label: "[3] Google Search Central: ProfilePage structured data", href: "https://developers.google.com/search/docs/appearance/structured-data/profile-page" }
+    ],
+    faq: [
+      {
+        question: "AIEO専用の裏技を入れた方がいいですか？",
+        answer: "優先度は低いです。Googleの公式資料から見る限り、まず効くのは people-first content、著者情報、構造化データ、明確な本文構造です。"
+      },
+      {
+        question: "医療記事ではタグやカテゴリも重要ですか？",
+        answer: "重要です。人間の回遊にも検索エンジンの文脈理解にも役立つため、テーマ別の整理はやった方がよいです。ただし本文の質の代わりにはなりません。"
+      }
+    ],
   },
 ];
 
