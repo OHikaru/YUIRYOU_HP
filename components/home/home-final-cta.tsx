@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import { homePageCopy } from "@/content/home-page-copy";
 
@@ -18,7 +18,7 @@ export function HomeFinalCta() {
             ))}
           </div>
         </div>
-        <div className="hero-actions">
+        <div className="hero-actions cta-banner__actions">
           <Link href="/contact" className="button button--solid">{copy.finalCta.primaryCta}</Link>
           <Link href="/insights" className="button button--ghost button--light">{copy.finalCta.secondaryCta}</Link>
         </div>
@@ -26,4 +26,3 @@ export function HomeFinalCta() {
     </section>
   );
 }
-

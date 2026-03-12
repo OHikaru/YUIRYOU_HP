@@ -1,4 +1,4 @@
-﻿import { homePageCopy } from "@/content/home-page-copy";
+import { homePageCopy } from "@/content/home-page-copy";
 import { SectionLead } from "@/components/ui";
 
 type PricingPlan = {
@@ -27,11 +27,12 @@ export function HomePricing({ plans }: { plans: PricingPlan[] }) {
             <article key={plan.name} className={`panel panel--pricing ${pricingCardClasses[index] ?? ""}`}>
               <div className="pricing-card__top">
                 <span className="pricing-card__label">{copy.pricing.labels[index] ?? "伴走"}</span>
-                <p className="eyebrow">{plan.name}</p>
+                <p className="pricing-card__name">{plan.name}</p>
               </div>
               <div className="pricing-card__body">
                 <h3>{plan.price}</h3>
                 <p className="pricing-note">{plan.note}</p>
+                <p className="pricing-card__subhead">含まれる内容</p>
                 <ul className="stack-list">
                   {(plan.features ?? []).map((feature) => (
                     <li key={feature}>{feature}</li>

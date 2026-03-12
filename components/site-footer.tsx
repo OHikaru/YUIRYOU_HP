@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 import logo from "@/images/YUIRYOU_logo.png";
@@ -8,15 +8,16 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="shell site-footer__grid">
-        <div>
+        <div className="site-footer__brand">
           <Image src={logo} alt="YUIRYOU株式会社のロゴ" className="site-footer__logo" />
-          <h2>医療監修で終わらせない、法人向け医療コンサルティング</h2>
+          <p className="eyebrow">Healthcare Business Partner</p>
+          <h2>医療監修の先まで踏み込み、研究・AI・発信の実務を前に進めるための法人向け医療コンサルティング。</h2>
           <p>
             本サイトは法人向けの情報提供と伴走支援を目的としています。患者個人の診療相談や個別の治療判断は行いません。
           </p>
         </div>
-        <div>
-          <h3>主要ページ</h3>
+        <div className="site-footer__nav-block">
+          <h3>支援領域</h3>
           <ul className="footer-list">
             <li><Link href="/services/medical-scientific-advisory">医療・科学アドバイザリー</Link></li>
             <li><Link href="/services/clinical-research-rct">臨床研究・RCT・論文化支援</Link></li>
@@ -24,7 +25,7 @@ export function SiteFooter() {
             <li><Link href="/services/youtube-content-ad">YouTube・広告・オウンドメディア支援</Link></li>
           </ul>
         </div>
-        <div>
+        <div className="site-footer__nav-block">
           <h3>ガイド</h3>
           <ul className="footer-list">
             <li><Link href="/team">チーム紹介</Link></li>

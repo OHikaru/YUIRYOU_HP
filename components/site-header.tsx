@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 import logo from "@/images/YUIRYOU_logo.png";
@@ -17,17 +17,19 @@ export function SiteHeader() {
       <div className="shell site-header__inner">
         <Link href="/" className="brand-mark" aria-label="トップページへ戻る">
           <Image src={logo} alt="YUIRYOU株式会社のロゴ" className="brand-mark__logo" priority />
-          <span>
+          <span className="brand-mark__text">
             <strong>{siteConfig.brandName}</strong>
-            <small>法人向け医療コンサルティング</small>
+            <small>Medical Consulting For Healthcare Businesses</small>
           </span>
         </Link>
         <nav className="site-nav" aria-label="グローバルナビゲーション">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href}>
-              {item.label}
-            </Link>
-          ))}
+          <div className="site-nav__links">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </div>
           <Link href={siteConfig.primaryCta.href} className="button button--sm button--solid">
             {siteConfig.primaryCta.label}
           </Link>
