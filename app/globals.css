@@ -168,6 +168,8 @@ main { overflow: clip; }
 .site-nav__links {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex: 1 1 auto;
   flex-wrap: nowrap;
   gap: clamp(12px, 1.35vw, 20px);
   min-width: 0;
@@ -188,6 +190,7 @@ main { overflow: clip; }
   align-items: center;
   gap: 10px;
   flex: 0 0 auto;
+  margin-left: clamp(8px, 1vw, 18px);
 }
 
 .button {
@@ -226,7 +229,11 @@ main { overflow: clip; }
   background: rgba(255, 255, 255, 0.08);
 }
 .button--full { width: 100%; }
-.language-toggle { min-width: 92px; }
+.language-toggle {
+  min-width: 0;
+  padding-inline: 14px;
+  white-space: nowrap;
+}
 
 .hero,
 .page-hero {
@@ -506,7 +513,7 @@ main { overflow: clip; }
 .card-grid { display: grid; gap: 18px; }
 .card-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .card-grid--five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.card-grid--two,
+.card-grid--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .card-grid--team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .card-grid--pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .issue-card,
@@ -528,6 +535,21 @@ main { overflow: clip; }
   align-content: start;
   gap: 14px;
 }
+.support-area-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+.support-area-card h3 {
+  margin: 0;
+  font-size: clamp(1.12rem, 1.5vw, 1.36rem);
+  line-height: 1.42;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.support-area-card p {
+  margin: 0;
+  max-width: none;
+}
 .support-area-card__meta {
   display: flex;
   align-items: center;
@@ -548,6 +570,10 @@ main { overflow: clip; }
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 8px;
+}
+.support-area-card__link {
+  margin-top: auto;
+  padding-top: 4px;
 }
 .comparison-table-shell { overflow-x: auto; }
 .comparison-table {
@@ -1075,6 +1101,8 @@ main { overflow: clip; }
 .article-meta--hero { color: rgba(255, 255, 255, 0.82); }
 .filter-row,
 .tag-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.filter-row { align-items: center; }
+.tag-row { min-width: 0; }
 .filter-chip,
 .tag-pill {
   display: inline-flex;
@@ -1101,8 +1129,37 @@ main { overflow: clip; }
   background: rgba(255, 255, 255, 0.08);
 }
 .article-section { padding-top: 24px; }
+.insights-grid { align-items: stretch; }
 .article-stack { display: grid; gap: 22px; }
 .article-panel { padding: 28px; }
+.article-card__header {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.panel--article-card {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+.panel--article-card h2 {
+  margin: 0;
+  font-size: clamp(1.22rem, 1.7vw, 1.5rem);
+  line-height: 1.4;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.panel--article-card > p {
+  margin: 0;
+  max-width: none;
+}
+.panel--article-card .article-mini-list {
+  margin-top: 2px;
+}
+.panel--article-card .article-meta {
+  margin-top: auto;
+  padding-top: 12px;
+}
 .article-panel--summary,
 .article-panel--lead,
 .article-panel--conclusion,
@@ -1150,6 +1207,7 @@ main { overflow: clip; }
 
 @media (max-width: 1180px) {
   .card-grid--five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .support-area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .site-header__inner {
     flex-wrap: wrap;
     row-gap: 14px;
@@ -1213,6 +1271,16 @@ main { overflow: clip; }
   .pricing-guardrails { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 1360px) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: 14px;
+  }
+  .site-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
 @media (max-width: 920px) {
   .comparison-table-shell { display: none; }
   .hero-title--home { max-width: 100%; }
@@ -1245,6 +1313,7 @@ main { overflow: clip; }
   .site-nav__actions {
     width: 100%;
     justify-content: flex-end;
+    margin-left: 0;
   }
   .page-hero__media { min-height: 0; }
   .page-hero__media--landscape { aspect-ratio: 16 / 10; }
@@ -1295,5 +1364,6 @@ main { overflow: clip; }
   .site-footer__nav { grid-template-columns: 1fr; }
   .site-footer__bottom { flex-direction: column; }
 }
+
 
 
