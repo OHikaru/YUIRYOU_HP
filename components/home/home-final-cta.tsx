@@ -1,9 +1,11 @@
 import Link from "next/link";
 
 import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
+import { withLocale } from "@/lib/locale";
 
-export function HomeFinalCta() {
-  const copy = homePageCopy.ja;
+export function HomeFinalCta({ locale = "ja" }: { locale?: SiteLocale }) {
+  const copy = homePageCopy[locale];
 
   return (
     <section className="section section--cta">
@@ -19,8 +21,8 @@ export function HomeFinalCta() {
           </div>
         </div>
         <div className="hero-actions cta-banner__actions">
-          <Link href="/contact" className="button button--solid">{copy.finalCta.primaryCta}</Link>
-          <Link href="/insights" className="button button--ghost button--light">{copy.finalCta.secondaryCta}</Link>
+          <Link href={withLocale("/contact", locale)} className="button button--solid">{copy.finalCta.primaryCta}</Link>
+          <Link href={withLocale("/insights", locale)} className="button button--ghost button--light">{copy.finalCta.secondaryCta}</Link>
         </div>
       </div>
     </section>

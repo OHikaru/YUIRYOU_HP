@@ -1,14 +1,14 @@
 import { SectionLead } from "@/components/ui";
+import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
 
-export function HomeIssues({ issues }: { issues: string[] }) {
+export function HomeIssues({ issues, locale = "ja" }: { issues: string[]; locale?: SiteLocale }) {
+  const copy = homePageCopy[locale].issues;
+
   return (
     <section className="section section--muted">
       <div className="shell">
-        <SectionLead
-          eyebrow="課題"
-          title="こんな課題はありませんか"
-          description="医療接点のある事業では、LP、営業資料、研究、AI、発信のどこかで判断が止まりやすくなります。"
-        />
+        <SectionLead eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         <div className="card-grid card-grid--three issue-grid">
           {issues.map((issue, index) => (
             <article key={issue} className="panel panel--soft issue-card">

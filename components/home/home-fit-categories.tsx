@@ -1,19 +1,19 @@
 import { SectionLead } from "@/components/ui";
+import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
 
 type FitCategory = {
   title: string;
   description: string;
 };
 
-export function HomeFitCategories({ categories }: { categories: FitCategory[] }) {
+export function HomeFitCategories({ categories, locale = "ja" }: { categories: FitCategory[]; locale?: SiteLocale }) {
+  const copy = homePageCopy[locale].fit;
+
   return (
     <section className="section section--muted">
       <div className="shell">
-        <SectionLead
-          eyebrow="対象企業"
-          title="こうした企業に向いています"
-          description="医療接点があり、研究・AI・発信のどこかで専門的な判断が必要な企業に適した支援です。"
-        />
+        <SectionLead eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         <div className="card-grid card-grid--two fit-grid">
           {categories.map((item) => (
             <article key={item.title} className="panel fit-card">

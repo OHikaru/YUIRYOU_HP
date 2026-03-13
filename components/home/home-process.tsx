@@ -1,22 +1,22 @@
 import Image from "next/image";
 
 import { SectionLead } from "@/components/ui";
+import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
 
 type FlowItem = {
   title: string;
   description: string;
 };
 
-export function HomeProcess({ supportFlow }: { supportFlow: FlowItem[] }) {
+export function HomeProcess({ supportFlow, locale = "ja" }: { supportFlow: FlowItem[]; locale?: SiteLocale }) {
+  const copy = homePageCopy[locale].process;
+
   return (
     <section className="section">
       <div className="shell grid-two grid-two--wide-gap">
         <div>
-          <SectionLead
-            eyebrow="支援イメージ"
-            title="診断・設計・伴走の3段階で進めます"
-            description="現状整理から優先順位付け、実行支援までを切り分けずに前進させる構成です。"
-          />
+          <SectionLead eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
           <div className="process-grid">
             {supportFlow.map((item, index) => (
               <article key={item.title} className="process-card">
@@ -28,7 +28,7 @@ export function HomeProcess({ supportFlow }: { supportFlow: FlowItem[] }) {
           </div>
         </div>
         <div className="panel panel--visual panel--visual-clean">
-          <Image src="/images/support-journey.png" alt="支援イメージ" width={1408} height={768} />
+          <Image src="/images/support-journey.png" alt={locale === "en" ? "Support journey" : "支援イメージ"} width={1408} height={768} />
         </div>
       </div>
     </section>

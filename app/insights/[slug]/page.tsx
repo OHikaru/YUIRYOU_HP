@@ -4,9 +4,14 @@ import { notFound } from "next/navigation";
 
 import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { JsonLd, SectionLead } from "@/components/ui";
+import { insightDetailCopy } from "@/content/page-copy";
+import { localizeArticle, localizeArticles, localizeTeamMembers } from "@/content/localized-site-data";
 import { siteConfig } from "@/content/site";
+import { buildMetadata, formatDate } from "@/lib/seo";
 import { getArticleBySlug, getArticles, getTeamMembers } from "@/lib/site-data";
-import { absoluteUrl, buildMetadata, formatJapaneseDate } from "@/lib/seo";
+
+const locale = "ja" as const;
+const copy = insightDetailCopy[locale];
 
 export async function generateStaticParams() {
   const articles = await getArticles();
@@ -17,11 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) return {};
+  const localized = localizeArticle(article, locale);
 
   return buildMetadata({
-    title: `${article.title} | インサイト / コラム`,
-    description: article.summary,
-    path: `/insights/${article.slug}`,
+    title: localized.title + " | " + copy.listLabel,
+    description: localized.summary,
+    path: "/insights/" + localized.slug,
+    locale,
   });
 }
 
@@ -30,27 +37,27 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
   const [article, teamMembers, allArticles] = await Promise.all([getArticleBySlug(slug), getTeamMembers(), getArticles()]);
   if (!article) notFound();
 
-  const author = teamMembers.find((member) => member.id === article.authorId);
-  const fallbackName = siteConfig.brandName;
-  const fallbackRole = "医療コンサルティングチーム";
-  const fallbackBio = "医療・研究・AI・発信を横断して支援する医師チームです。";
+  const localizedArticle = localizeArticle(article, locale);
+  const localizedTeam = localizeTeamMembers(teamMembers, locale);
+  const localizedArticles = localizeArticles(allArticles, locale);
 
-  const relatedArticles = allArticles
-    .filter((candidate) => candidate.slug !== article.slug)
-    .filter((candidate) => candidate.tags.some((tag) => article.tags.includes(tag)))
+  const author = localizedTeam.find((member) => member.id === localizedArticle.authorId);
+  const relatedArticles = localizedArticles
+    .filter((candidate) => candidate.slug !== localizedArticle.slug)
+    .filter((candidate) => candidate.tags.some((tag) => localizedArticle.tags.includes(tag)))
     .slice(0, 3);
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: article.title,
-    description: article.summary,
-    datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
-    keywords: article.tags,
-    author: { "@type": "Person", name: author?.name ?? fallbackName, description: author?.role ?? fallbackRole },
-    publisher: { "@type": "Organization", name: siteConfig.brandName, url: absoluteUrl("/") },
-    mainEntityOfPage: absoluteUrl(`/insights/${article.slug}`),
+    headline: localizedArticle.title,
+    description: localizedArticle.summary,
+    datePublished: localizedArticle.publishedAt,
+    dateModified: localizedArticle.publishedAt,
+    keywords: localizedArticle.tags,
+    author: { "@type": "Person", name: author?.name ?? siteConfig.brandName, description: author?.role ?? copy.fallbackRole },
+    publisher: { "@type": "Organization", name: siteConfig.brandName, url: siteConfig.siteUrl },
+    mainEntityOfPage: siteConfig.siteUrl + "/insights/" + localizedArticle.slug,
   };
 
   return (
@@ -58,70 +65,71 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
       <JsonLd data={articleSchema} />
       <article>
         <PageHeroWithImage
-          items={[{ href: "/insights", label: "インサイト / コラム" }, { href: `/insights/${article.slug}`, label: article.title }]}
-          eyebrow={article.category}
-          title={article.title}
+          items={[{ href: "/insights", label: copy.listLabel }, { href: "/insights/" + localizedArticle.slug, label: localizedArticle.title }]}
+          eyebrow={localizedArticle.category}
+          title={localizedArticle.title}
           imageSrc="/images/page-hero-insights.jpg"
-          imageAlt={`${article.title}のイメージ`}
+          imageAlt={copy.heroImageAlt(localizedArticle.title)}
           imageWidth={1408}
           imageHeight={768}
           heroClassName="article-hero"
           bodyClassName="page-hero__body--article"
           imagePriority
+          locale={locale}
         >
           <div className="article-meta article-meta--hero">
-            <span>{formatJapaneseDate(article.publishedAt)}</span>
-            <span>{author?.name ?? fallbackName}</span>
-            <span>{author?.role ?? fallbackRole}</span>
+            <span>{formatDate(localizedArticle.publishedAt, locale)}</span>
+            <span>{author?.name ?? siteConfig.brandName}</span>
+            <span>{author?.role ?? copy.fallbackRole}</span>
           </div>
           <div className="tag-row tag-row--hero">
-            {article.tags.map((tag) => <span key={tag} className="tag-pill tag-pill--light">{tag}</span>)}
+            {localizedArticle.tags.map((tag) => <span key={tag} className="tag-pill tag-pill--light">{tag}</span>)}
           </div>
-          <p className="hero-copy">{article.summary}</p>
+          <p className="hero-copy">{localizedArticle.summary}</p>
         </PageHeroWithImage>
 
         <section className="section article-section">
           <div className="shell narrow-shell article-stack">
             <div className="article-panel article-panel--summary">
-              <SectionLead eyebrow="Summary" title="要点" />
-              <p>{article.summary}</p>
+              <SectionLead eyebrow={copy.summaryEyebrow} title={copy.summaryTitle} />
+              <p>{localizedArticle.summary}</p>
             </div>
 
             <div className="article-panel article-panel--lead">
-              <SectionLead eyebrow="TL;DR" title="この記事でわかること" />
+              <SectionLead eyebrow={copy.tldrEyebrow} title={copy.tldrTitle} />
               <ul className="check-list">
-                {article.tldr.map((item) => <li key={item}>{item}</li>)}
+                {localizedArticle.tldr.map((item) => <li key={item}>{item}</li>)}
               </ul>
             </div>
 
             <div className="article-panel">
-              <SectionLead title="読む前に押さえたい論点" />
+              <SectionLead title={copy.learningsTitle} />
               <ul className="check-list">
-                {article.learnings.map((item) => <li key={item}>{item}</li>)}
+                {localizedArticle.learnings.map((item) => <li key={item}>{item}</li>)}
               </ul>
             </div>
 
             <div className="article-panel prose-block article-panel--conclusion">
-              <SectionLead title="結論" />
-              <p>{article.conclusion}</p>
+              <SectionLead title={copy.conclusionTitle} />
+              <p>{localizedArticle.conclusion}</p>
             </div>
 
             <div className="article-panel prose-block article-panel--background">
-              <SectionLead title="背景" />
-              {article.background.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              <SectionLead title={copy.backgroundTitle} />
+              {localizedArticle.background.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
 
             <div className="article-panel article-panel--actions">
-              <SectionLead title="具体策" />
+              <SectionLead title={copy.actionsTitle} />
               <ul className="stack-list">
-                {article.actions.map((item) => <li key={item}>{item}</li>)}
+                {localizedArticle.actions.map((item) => <li key={item}>{item}</li>)}
               </ul>
             </div>
 
             <div className="article-panel article-panel--source">
-              <SectionLead title="出典" description="2026年3月13日時点で確認した一次情報・公式情報です。" />
+              <SectionLead title={copy.sourcesTitle} description={copy.sourcesDescription} />
               <ul className="source-list">
-                {article.sources.map((source) => (
+                {localizedArticle.sources.map((source) => (
                   <li key={source.href}>
                     <a href={source.href} target="_blank" rel="noreferrer">{source.label}</a>
                   </li>
@@ -130,9 +138,9 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
             </div>
 
             <div className="article-panel">
-              <SectionLead title="FAQ" />
+              <SectionLead title={copy.faqTitle} />
               <div className="faq-list">
-                {article.faq.map((item) => (
+                {localizedArticle.faq.map((item) => (
                   <details key={item.question} className="faq-item">
                     <summary>{item.question}</summary>
                     <p>{item.answer}</p>
@@ -142,24 +150,24 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
             </div>
 
             <div className="article-panel article-panel--author">
-              <p className="eyebrow">著者 / 監修者</p>
-              <h2>{author?.name ?? fallbackName}</h2>
-              <p className="role-label">{author?.role ?? fallbackRole}</p>
-              <p>{author?.bio ?? fallbackBio}</p>
+              <p className="eyebrow">{copy.authorEyebrow}</p>
+              <h2>{author?.name ?? siteConfig.brandName}</h2>
+              <p className="role-label">{author?.role ?? copy.fallbackRole}</p>
+              <p>{author?.bio ?? copy.fallbackBio}</p>
               <div className="hero-actions">
-                <Link href="/team" className="button button--ghost">チームを見る</Link>
-                <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
+                <Link href="/team" className="button button--ghost">{copy.viewTeamLabel}</Link>
+                <Link href="/contact" className="button button--solid">{copy.primaryCta}</Link>
               </div>
             </div>
 
             {relatedArticles.length ? (
               <div className="article-panel article-panel--related">
-                <SectionLead title="関連記事" description="近い論点から続けて読める記事です。" />
+                <SectionLead title={copy.relatedTitle} description={copy.relatedDescription} />
                 <div className="related-articles">
                   {relatedArticles.map((related) => (
                     <article key={related.slug} className="related-article-card">
                       <p className="eyebrow">{related.category}</p>
-                      <h3><Link href={`/insights/${related.slug}`}>{related.title}</Link></h3>
+                      <h3><Link href={"/insights/" + related.slug}>{related.title}</Link></h3>
                       <p>{related.summary}</p>
                     </article>
                   ))}

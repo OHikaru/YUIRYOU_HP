@@ -1,12 +1,17 @@
-﻿"use client";
+"use client";
 
 import { FormEvent, useEffect, useState } from "react";
+
+import { contactFormCopy } from "@/content/page-copy";
+import type { SiteLocale } from "@/lib/locale";
+import { withLocale } from "@/lib/locale";
 
 const hiddenKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "referrer", "landing_page"] as const;
 
 type HiddenFieldState = Record<(typeof hiddenKeys)[number], string>;
 
-export function ContactForm() {
+export function ContactForm({ locale = "ja" }: { locale?: SiteLocale }) {
+  const copy = contactFormCopy[locale];
   const [hiddenValues, setHiddenValues] = useState<HiddenFieldState>({
     utm_source: "",
     utm_medium: "",
@@ -36,54 +41,121 @@ export function ContactForm() {
   };
 
   return (
-    <form className="contact-form" action="/thanks" method="get" onSubmit={handleSubmit}>
+    <form className="contact-form" action={withLocale("/thanks", locale)} method="get" onSubmit={handleSubmit}>
+      <div className="contact-form__intro">
+        <h2>{copy.title}</h2>
+        <p>{copy.description}</p>
+      </div>
+
       <div className="form-grid">
-        <label><span>会社名</span><input name="company" type="text" required /></label>
-        <label><span>お名前</span><input name="name" type="text" required /></label>
-        <label><span>メールアドレス</span><input name="email" type="email" required /></label>
-        <label><span>電話番号</span><input name="phone" type="tel" /></label>
-        <label><span>役職</span><input name="title" type="text" /></label>
-        <label><span>会社URL</span><input name="company_url" type="url" placeholder="https://" /></label>
-        <label><span>業種</span><input name="industry" type="text" required /></label>
-        <label>
-          <span>相談したい内容</span>
-          <select name="topic" required defaultValue="">
-            <option value="" disabled>選択してください</option>
-            <option value="advisory">医療・科学アドバイザリー</option>
-            <option value="research">臨床研究・RCT・論文化支援</option>
-            <option value="ai-global">医療AI・英語 / 海外向け支援</option>
-            <option value="media">YouTube・広告・オウンドメディア支援</option>
-            <option value="diagnostic">診断パック</option>
-            <option value="other">その他</option>
-          </select>
+        <label className="form-field">
+          <span>{copy.labels.company}</span>
+          <input name="company" type="text" required />
+        </label>
+        <label className="form-field">
+          <span>{copy.labels.name}</span>
+          <input name="name" type="text" required />
+        </label>
+        <label className="form-field">
+          <span>{copy.labels.email}</span>
+          <input name="email" type="email" required />
+        </label>
+        <label className="form-field">
+          <span>
+            {copy.labels.phone}
+            <small>{copy.optionalLabel}</small>
+          </span>
+          <input name="phone" type="tel" placeholder={copy.placeholders.phone} />
+        </label>
+        <label className="form-field">
+          <span>
+            {copy.labels.title}
+            <small>{copy.optionalLabel}</small>
+          </span>
+          <input name="title" type="text" />
+        </label>
+        <label className="form-field">
+          <span>
+            {copy.labels.company_url}
+            <small>{copy.optionalLabel}</small>
+          </span>
+          <input name="company_url" type="url" placeholder={copy.placeholders.company_url} />
+        </label>
+        <label className="form-field form-field--wide">
+          <span>{copy.labels.industry}</span>
+          <input name="industry" type="text" required />
         </label>
       </div>
-      <label>
-        <span>現在の課題</span>
-        <textarea name="challenge" rows={5} required />
+
+      <fieldset className="choice-fieldset">
+        <legend>{copy.focusLegend}</legend>
+        <div className="choice-grid choice-grid--large">
+          {copy.focusOptions.map((option) => (
+            <label key={option.value} className="choice-card">
+              <input name="topic" type="radio" value={option.value} required />
+              <span>{option.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="choice-fieldset">
+        <legend>
+          {copy.stageLegend}
+          <small>{copy.optionalLabel}</small>
+        </legend>
+        <div className="choice-grid">
+          {copy.stageOptions.map((option) => (
+            <label key={option.value} className="choice-card choice-card--compact">
+              <input name="stage" type="radio" value={option.value} />
+              <span>{option.label}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label className="form-field">
+        <span>{copy.challengeLabel}</span>
+        <textarea name="challenge" rows={6} required placeholder={copy.challengePlaceholder} />
       </label>
-      <div className="form-grid">
-        <label><span>想定時期</span><input name="timing" type="text" placeholder="例: 1か月以内 / 2026年Q2" /></label>
-        <label>
-          <span>想定予算</span>
-          <select name="budget" defaultValue="">
-            <option value="" disabled>選択してください</option>
-            <option value="under-300">30万円未満</option>
-            <option value="300-600">30〜60万円</option>
-            <option value="600-1000">60〜100万円</option>
-            <option value="1000-1800">100〜180万円</option>
-            <option value="over-1800">180万円以上</option>
-          </select>
-        </label>
-      </div>
+
+      <fieldset className="choice-fieldset choice-fieldset--split">
+        <div>
+          <legend>{copy.timingLegend}</legend>
+          <div className="choice-grid">
+            {copy.timingOptions.map((option) => (
+              <label key={option.value} className="choice-card choice-card--compact">
+                <input name="timing" type="radio" value={option.value} required />
+                <span>{option.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div>
+          <legend>
+            {copy.budgetLegend}
+            <small>{copy.optionalLabel}</small>
+          </legend>
+          <div className="choice-grid">
+            {copy.budgetOptions.map((option) => (
+              <label key={option.value} className="choice-card choice-card--compact">
+                <input name="budget" type="radio" value={option.value} />
+                <span>{option.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </fieldset>
+
       {hiddenKeys.map((key) => (
         <input key={key} type="hidden" name={key} value={hiddenValues[key]} readOnly />
       ))}
+
       <label className="consent-check">
         <input name="consent" type="checkbox" required />
-        <span>個人情報保護指針に同意する</span>
+        <span>{copy.consentLabel}</span>
       </label>
-      <button type="submit" className="button button--solid button--full">法人向け無料相談を申し込む</button>
+      <button type="submit" className="button button--solid button--full">{copy.submitLabel}</button>
     </form>
   );
 }

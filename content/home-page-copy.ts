@@ -11,16 +11,65 @@ type HomePageCopy = {
     eyebrow: string;
     title: string;
     description: string;
+    agendaTitle: string;
+    agendaItems: string[];
+    agendaFootnote: string;
     highlights: HomeHighlight[];
     primaryCta: string;
     secondaryCta: string;
     note: string;
+  };
+  issues: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  supportAreas: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    linkLabel: string;
+  };
+  comparison: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    columnLabels: string[];
+    footnote: string;
+  };
+  fit: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  process: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  timeline: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  team: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    researchmapLabel: string;
+    detailLabel: string;
   };
   pricing: {
     eyebrow: string;
     title: string;
     description: string;
     labels: string[];
+    includesLabel: string;
+    guardrails: string[];
+  };
+  faq: {
+    eyebrow: string;
+    title: string;
   };
   finalCta: {
     eyebrow: string;
@@ -35,59 +84,123 @@ type HomePageCopy = {
 export const homePageCopy: Record<HomeLocale, HomePageCopy> = {
   ja: {
     hero: {
-      eyebrow: "Femtech / Healthcare SaaS / Medical Media / Global Health",
-      title: "医療の信頼性で、事業の前進を止めない。医師3名が研究・AI・発信まで伴走します。",
+      eyebrow: "Femtech / Healthcare SaaS / Medical Media",
+      title: "??????????????????3?????AI???????????",
       description:
-        "フェムテック、ヘルスケアSaaS、医療メディア、海外準備中のスタートアップ向けに、英語・RCT・研究実務、医療AI・情報品質、YouTube・広告設計を1チームで支援します。",
+        "????????????SaaS??????????????????????????RCT????????AI??????YouTube??????????????",
+      agendaTitle: "???????????",
+      agendaItems: [
+        "????????????????",
+        "???AI????????????????",
+        "?????????????????????",
+      ],
+      agendaFootnote: "?????????????????????????",
       highlights: [
         {
           label: "Research",
-          title: "英語・RCT・研究実務",
-          description: "PoC設計、文献レビュー、論文化準備までを、事業判断に使える形で前に進めます。",
+          title: "???RCT?????",
+          description: "PoC???????????????????????????????????",
         },
         {
           label: "AI",
-          title: "医療AI・情報品質設計",
-          description: "AI活用ルール、出典管理、監修フローを整え、医療情報の品質を運用で支えます。",
+          title: "??AI???????",
+          description: "AI???????????????????????????????????",
         },
         {
           label: "Content",
-          title: "YouTube・広告・発信設計",
-          description: "医療の正確性を保ちながら、再生・読了・商談導線まで見据えた発信へ落とし込みます。",
+          title: "YouTube????????",
+          description: "?????????????????????????????????????",
         },
       ],
-      primaryCta: "法人向け無料相談を申し込む",
-      secondaryCta: "料金プランを見る",
-      note: "法人向け / 患者個人の相談は対象外 / 価格と支援範囲を公開",
+      primaryCta: "30???????????",
+      secondaryCta: "????????",
+      note: "???? / ??????????? / ???????????????",
+    },
+    issues: {
+      eyebrow: "Issues",
+      title: "????????????",
+      description: "??????AI?????????????????????????????",
+    },
+    supportAreas: {
+      eyebrow: "Support Areas",
+      title: "5??????",
+      description: "?????????????AI??????????????????",
+      linkLabel: "?????",
+    },
+    comparison: {
+      eyebrow: "Why YUIRYOU",
+      title: "?????????????????",
+      description: "??????????????????????AI??????????????????????",
+      columnLabels: ["YUIRYOU", "????????", "???????? / ???"],
+      footnote: "???????????????????????????????",
+    },
+    fit: {
+      eyebrow: "Best Fit",
+      title: "????????????",
+      description: "???????????????????????????????????",
+    },
+    process: {
+      eyebrow: "Support Journey",
+      title: "??????",
+      description: "?????????3???????????????????????????",
+    },
+    timeline: {
+      eyebrow: "30 / 60 / 90 Days",
+      title: "???90???????",
+      description: "????????????????3?????????????",
+    },
+    team: {
+      eyebrow: "Team",
+      title: "3????????????????????????",
+      description: "???????AI???????????????????????????????",
+      researchmapLabel: "researchmap???",
+      detailLabel: "??????",
     },
     pricing: {
-      eyebrow: "料金",
-      title: "関与の深さと成果物の違いを、最初に比較できます。",
+      eyebrow: "Pricing",
+      title: "???????????????????????",
       description:
-        "会議頻度、レビュー範囲、成果物の違いがひと目でわかるように整理しています。案件の重さと必要な関与度に応じて選べます。",
-      labels: ["入口設計", "定例壁打ち", "施策伴走", "経営伴走"],
+        "??????????????????????????????????????????????????????????????????????",
+      labels: ["????", "?????", "????", "????"],
+      includesLabel: "????????",
+      guardrails: [
+        "?????????",
+        "????????????????",
+        "????????????????????????????????????",
+      ],
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "??????????",
     },
     finalCta: {
-      eyebrow: "ご相談",
-      title: "医療・研究・AI・発信を、事業計画に沿って前に進めます。",
+      eyebrow: "Contact",
+      title: "?????????????????????",
       description:
-        "医療の正確性だけでなく、社内説明、営業資料、研究設計、AI運用、コンテンツ改善まで、一貫した体制で伴走します。",
-      primaryCta: "法人向け無料相談を申し込む",
-      secondaryCta: "インサイトを見る",
-      proof: ["法人向け支援", "価格公開", "医師3名体制"],
+        "????????????SaaS???????????????????????????????????????????",
+      primaryCta: "?????????",
+      secondaryCta: "????????",
+      proof: ["????", "????", "??3???"],
     },
   },
   en: {
     hero: {
-      eyebrow: "Femtech / Healthcare SaaS / Medical Media / Global Health",
-      title: "Keep business momentum without compromising medical credibility.",
+      eyebrow: "Femtech / Healthcare SaaS / Medical Media",
+      title: "Turn medical credibility into business momentum. Three physicians support research, AI, and communication execution.",
       description:
-        "For femtech, healthcare SaaS, medical media, and globally minded startups, our three-physician team supports research operations, medical AI quality design, and content execution in one system.",
+        "For femtech, healthcare SaaS, medical media, and globally minded startups, we support research operations, medical AI quality design, and communication execution in one team.",
+      agendaTitle: "What we clarify in the first call",
+      agendaItems: [
+        "Which materials or initiatives need medical judgment",
+        "What should be prioritized across research, AI, and communication",
+        "Which evidence or review gaps are slowing decisions",
+      ],
+      agendaFootnote: "The first call focuses on issue framing and priority setting.",
       highlights: [
         {
           label: "Research",
           title: "English, RCTs, and research operations",
-          description: "We connect PoC design, literature review, and publication readiness to real business decisions.",
+          description: "We connect PoC design, literature review, and publication readiness to business progress.",
         },
         {
           label: "AI",
@@ -96,27 +209,77 @@ export const homePageCopy: Record<HomeLocale, HomePageCopy> = {
         },
         {
           label: "Content",
-          title: "YouTube, ads, and content execution",
-          description: "We align medical accuracy with content systems that support visibility, trust, and conversion.",
+          title: "YouTube, ads, and content systems",
+          description: "We align medical accuracy with content that actually drives watch time, reads, and conversion.",
         },
       ],
-      primaryCta: "Request a company consultation",
+      primaryCta: "Book an initial consultation",
       secondaryCta: "View pricing",
-      note: "For companies only / No patient consultations / Pricing and scope disclosed upfront",
+      note: "For companies only / No patient consultations / Clear scope and pricing before engagement",
+    },
+    issues: {
+      eyebrow: "Issues",
+      title: "Are these the bottlenecks you are facing?",
+      description: "We clarify whether the slowdown is coming from materials, research design, AI quality, or communication execution.",
+    },
+    supportAreas: {
+      eyebrow: "Support Areas",
+      title: "Five support areas",
+      description: "Not one-off supervision. A physician team that supports research, AI, and communication together.",
+      linkLabel: "Learn more",
+    },
+    comparison: {
+      eyebrow: "Why YUIRYOU",
+      title: "How we differ from typical physician review or agencies",
+      description: "We combine medical credibility with research planning, English review, AI governance, and communication design.",
+      columnLabels: ["YUIRYOU", "Typical physician review", "Typical agency"],
+      footnote: "The difference is not just review quality, but the ability to connect medical thinking to research and execution.",
+    },
+    fit: {
+      eyebrow: "Best Fit",
+      title: "Best-fit companies",
+      description: "Best suited for teams that need medical credibility to move sales, research, and communication forward.",
+    },
+    process: {
+      eyebrow: "Support Journey",
+      title: "How support is structured",
+      description: "We move from diagnosis to design and then into recurring execution support.",
+    },
+    timeline: {
+      eyebrow: "30 / 60 / 90 Days",
+      title: "What the first 90 days look like",
+      description: "Clarify the current state, implement improvements, and define the next quarter with clear priorities.",
+    },
+    team: {
+      eyebrow: "Team",
+      title: "Three physicians, distinct execution roles, one consulting partner.",
+      description: "We divide responsibilities across research, AI quality, and communication design so healthcare teams can move faster.",
+      researchmapLabel: "View on researchmap",
+      detailLabel: "View team details",
     },
     pricing: {
       eyebrow: "Pricing",
-      title: "Compare scope and deliverables before the first meeting.",
+      title: "Compare meeting cadence, review scope, and deliverables before the first call.",
       description:
-        "Each plan is structured around meeting cadence, review depth, and expected deliverables so companies can judge fit quickly.",
+        "We disclose the standard service bands so companies can judge fit by scope and depth rather than vague package names.",
       labels: ["Entry", "Advisory", "Growth", "Strategic"],
+      includesLabel: "What is typically included",
+      guardrails: [
+        "Company-facing support only.",
+        "No consultations for individual patients.",
+        "Final legal and advertising judgments are handled with specialist collaboration when needed.",
+      ],
+    },
+    faq: {
+      eyebrow: "FAQ",
+      title: "Common questions before engagement",
     },
     finalCta: {
       eyebrow: "Contact",
-      title: "Move business, research, AI, and content execution forward with one team.",
+      title: "Clarify priorities and speed up the next decision.",
       description:
-        "We help healthcare companies align medical credibility with execution across internal materials, research design, AI operations, and content systems.",
-      primaryCta: "Request a company consultation",
+        "We support femtech, healthcare SaaS, medical media, and globally minded projects with clear scope and next-step recommendations.",
+      primaryCta: "Book a consultation",
       secondaryCta: "Read insights",
       proof: ["Company-only support", "Transparent pricing", "Three-physician team"],
     },

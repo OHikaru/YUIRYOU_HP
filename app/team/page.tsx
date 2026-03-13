@@ -2,22 +2,28 @@ import type { Metadata } from "next";
 
 import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { JsonLd, SectionLead } from "@/components/ui";
+import { teamPageCopy } from "@/content/page-copy";
+import { localizeTeamMembers } from "@/content/localized-site-data";
 import { absoluteUrl, buildMetadata } from "@/lib/seo";
 import { getTeamMembers } from "@/lib/site-data";
 
-const researchmapLinks: Record<string, { href: string; label: string }> = {
-  "obgyn-rct": { href: "https://researchmap.jp/tmitoma", label: "三苫 智裕のresearchmap" },
-  "obgyn-ai": { href: "https://researchmap.jp/Hikaru_Ooba", label: "大羽 輝のresearchmap" },
+const locale = "ja" as const;
+const copy = teamPageCopy[locale];
+
+const researchmapLinks: Record<string, string> = {
+  "obgyn-rct": "https://researchmap.jp/tmitoma",
+  "obgyn-ai": "https://researchmap.jp/Hikaru_Ooba",
 };
 
 export const metadata: Metadata = buildMetadata({
-  title: "チーム紹介 | 三苫 智裕・大羽 輝・豊田 康介",
-  description: "三苫 智裕、大羽 輝、豊田 康介の3名で構成する医療コンサルティングチーム。研究・AI・発信の役割分担を紹介します。",
+  title: copy.metadataTitle,
+  description: copy.metadataDescription,
   path: "/team",
+  locale,
 });
 
 export default async function TeamPage() {
-  const teamMembers = await getTeamMembers();
+  const teamMembers = localizeTeamMembers(await getTeamMembers(), locale);
   const peopleSchema = teamMembers.map((member) => ({
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -27,7 +33,7 @@ export default async function TeamPage() {
       description: member.role,
       knowsAbout: [...member.specialties, ...member.supportThemes],
       image: absoluteUrl(member.image),
-      sameAs: researchmapLinks[member.id] ? [researchmapLinks[member.id].href] : undefined,
+      sameAs: researchmapLinks[member.id] ? [researchmapLinks[member.id]] : undefined,
     },
   }));
 
@@ -35,29 +41,24 @@ export default async function TeamPage() {
     <>
       <JsonLd data={peopleSchema} />
       <PageHeroWithImage
-        items={[{ href: "/team", label: "チーム紹介" }]}
-        eyebrow="医師チーム"
-        title="チーム紹介"
+        items={[{ href: "/team", label: copy.title }]}
+        eyebrow={copy.eyebrow}
+        title={copy.title}
         imageSrc="/images/page-hero-team.jpg"
-        imageAlt="チーム紹介のイメージ"
+        imageAlt={copy.imageAlt}
         imageWidth={1408}
         imageHeight={768}
         imagePriority
+        locale={locale}
       >
         <div className="three-line-summary">
-          <p>三苫 智裕、大羽 輝、豊田 康介の3名で構成する医療コンサルティングチームです。</p>
-          <p>研究・AI・情報品質・発信設計を役割分担し、事業課題に応じて横断的に支援します。</p>
-          <p>公開情報は2026年3月13日時点で確認できる内容を基準に整理しています。</p>
+          {copy.summary.map((line) => <p key={line}>{line}</p>)}
         </div>
       </PageHeroWithImage>
 
       <section className="section">
         <div className="shell">
-          <SectionLead
-            eyebrow="Member"
-            title="専門性の異なる3名が、ひとつの案件に連携して関わります"
-            description="研究、AI、発信の論点を切り分けず、事業の優先順位に沿って支援できる体制です。"
-          />
+          <SectionLead eyebrow={copy.sectionEyebrow} title={copy.sectionTitle} description={copy.sectionDescription} />
           <div className="team-list">
             {teamMembers.map((member) => {
               const profileLink = researchmapLinks[member.id];
@@ -70,32 +71,32 @@ export default async function TeamPage() {
                     <p>{member.bio}</p>
                     {profileLink ? (
                       <p className="team-card__external-link">
-                        <a href={profileLink.href} target="_blank" rel="noreferrer">{profileLink.label}</a>
+                        <a href={profileLink} target="_blank" rel="noreferrer">{copy.researchmapLabel}</a>
                       </p>
                     ) : null}
                   </div>
                   <div className="team-card__details-grid">
                     <section className="team-card__detail-block">
-                      <h3>専門領域</h3>
+                      <h3>{copy.labels.specialties}</h3>
                       <ul className="stack-list">
                         {member.specialties.map((item) => <li key={item}>{item}</li>)}
                       </ul>
                     </section>
                     <section className="team-card__detail-block">
-                      <h3>研究実績・補足</h3>
+                      <h3>{copy.labels.research}</h3>
                       <ul className="stack-list">
                         {member.researchHighlights.map((item) => <li key={item}>{item}</li>)}
                       </ul>
                     </section>
                     <section className="team-card__detail-block">
-                      <h3>相談できるテーマ</h3>
+                      <h3>{copy.labels.supportThemes}</h3>
                       <ul className="stack-list">
                         {member.supportThemes.map((item) => <li key={item}>{item}</li>)}
                       </ul>
                     </section>
                     {member.selectedPublications.length > 0 ? (
                       <section className="team-card__detail-block team-card__detail-block--wide">
-                        <h3>主要論文</h3>
+                        <h3>{copy.labels.publications}</h3>
                         <ul className="stack-list">
                           {member.selectedPublications.map((item) => <li key={item}>{item}</li>)}
                         </ul>
@@ -107,9 +108,8 @@ export default async function TeamPage() {
             })}
           </div>
           <div className="panel panel--accent">
-            <p className="eyebrow">掲載情報について</p>
-            <p>三苫 智裕、大羽 輝の研究実績・主要論文は、2026年3月13日時点で確認した researchmap の公開情報をもとに、企業向けに要点を整理しています。</p>
-            <p>掲載実績や論文は公開情報を基準に構成しており、より詳細な確認が必要な場合は個別にご案内します。</p>
+            <p className="eyebrow">{copy.labels.sourceNoteEyebrow}</p>
+            {copy.sourceNote.map((line) => <p key={line}>{line}</p>)}
           </div>
         </div>
       </section>

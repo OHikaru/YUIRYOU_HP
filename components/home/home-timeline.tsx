@@ -1,15 +1,19 @@
-﻿import { SectionLead } from "@/components/ui";
+import { SectionLead } from "@/components/ui";
+import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
 
 type TimelinePhase = {
   title: string;
   description: string;
 };
 
-export function HomeTimeline({ phases }: { phases: TimelinePhase[] }) {
+export function HomeTimeline({ phases, locale = "ja" }: { phases: TimelinePhase[]; locale?: SiteLocale }) {
+  const copy = homePageCopy[locale].timeline;
+
   return (
     <section className="section section--muted">
       <div className="shell">
-        <SectionLead eyebrow="30 / 60 / 90日" title="30 / 60 / 90日の進め方" />
+        <SectionLead eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         <div className="timeline-grid">
           {phases.map((phase) => (
             <article key={phase.title} className="timeline-card">
@@ -22,4 +26,3 @@ export function HomeTimeline({ phases }: { phases: TimelinePhase[] }) {
     </section>
   );
 }
-

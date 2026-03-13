@@ -4,9 +4,14 @@ import type { ServiceDetail } from "@/content/site";
 import { siteConfig } from "@/content/site";
 import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { JsonLd, SectionLead } from "@/components/ui";
+import { serviceTemplateCopy } from "@/content/page-copy";
 import { absoluteUrl } from "@/lib/seo";
+import { type SiteLocale, withLocale } from "@/lib/locale";
 
-export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
+export function ServicePageTemplate({ service, locale = "ja" }: { service: ServiceDetail; locale?: SiteLocale }) {
+  const copy = serviceTemplateCopy[locale];
+  const path = withLocale(service.path, locale);
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -14,19 +19,19 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
     description: service.metadataDescription,
     provider: {
       "@type": "Organization",
-      name: siteConfig.brandName,
+      name: locale === "en" ? siteConfig.brandNameEn : siteConfig.brandName,
       url: siteConfig.siteUrl,
     },
     areaServed: "JP",
-    url: absoluteUrl(service.path),
+    url: absoluteUrl(path),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "ホーム", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: service.title, item: absoluteUrl(service.path) },
+      { "@type": "ListItem", position: 1, name: locale === "en" ? "Home" : "???", item: absoluteUrl(withLocale("/", locale)) },
+      { "@type": "ListItem", position: 2, name: service.title, item: absoluteUrl(path) },
     ],
   };
 
@@ -34,14 +39,15 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
     <>
       <JsonLd data={[serviceSchema, breadcrumbSchema]} />
       <PageHeroWithImage
-        items={[{ href: service.path, label: service.title }]}
-        eyebrow="支援サービス"
+        items={[{ href: path, label: service.title }]}
+        eyebrow={copy.eyebrow}
         title={service.title}
         imageSrc="/images/page-hero-services.jpg"
-        imageAlt={`${service.title}のイメージ`}
+        imageAlt={copy.heroImageAlt(service.title)}
         imageWidth={1408}
         imageHeight={768}
         imagePriority
+        locale={locale}
       >
         <div className="three-line-summary">
           {service.summary.map((line) => (
@@ -49,15 +55,15 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
           ))}
         </div>
         <div className="hero-actions">
-          <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
-          <Link href="/#pricing" className="button button--ghost">料金表を見る</Link>
+          <Link href={withLocale("/contact", locale)} className="button button--solid">{copy.primaryCta}</Link>
+          <Link href={withLocale("/#pricing", locale)} className="button button--ghost">{copy.pricingLabel}</Link>
         </div>
       </PageHeroWithImage>
 
       <section className="section">
         <div className="shell grid-two">
           <div>
-            <SectionLead eyebrow="このページでわかること" title="支援範囲を短時間で把握できます" />
+            <SectionLead eyebrow={copy.understanding} title={copy.understandingTitle} />
             <ul className="check-list">
               {service.understandingPoints.map((point) => (
                 <li key={point}>{point}</li>
@@ -65,8 +71,8 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
             </ul>
           </div>
           <div className="panel panel--accent">
-            <p className="eyebrow">対象外</p>
-            <p>患者個人の診療相談や個別の治療判断は対象外です。法務・薬機法・医療広告の最終判断は必要に応じて専門家連携で行います。</p>
+            <p className="eyebrow">{copy.outOfScopeTitle}</p>
+            <p>{copy.outOfScopeBody}</p>
           </div>
         </div>
       </section>
@@ -74,7 +80,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
       <section className="section section--muted">
         <div className="shell grid-two">
           <div>
-            <SectionLead title="こんな悩みに" />
+            <SectionLead title={copy.painsTitle} />
             <ul className="stack-list">
               {service.pains.map((item) => (
                 <li key={item}>{item}</li>
@@ -82,7 +88,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
             </ul>
           </div>
           <div>
-            <SectionLead title="支援内容" />
+            <SectionLead title={copy.supportTitle} />
             <ul className="stack-list">
               {service.support.map((item) => (
                 <li key={item}>{item}</li>
@@ -95,7 +101,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
       <section className="section">
         <div className="shell grid-two">
           <div>
-            <SectionLead title="代表的な成果物" />
+            <SectionLead title={copy.deliverablesTitle} />
             <ul className="stack-list">
               {service.deliverables.map((item) => (
                 <li key={item}>{item}</li>
@@ -103,7 +109,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
             </ul>
           </div>
           <div>
-            <SectionLead title="向いている企業" />
+            <SectionLead title={copy.idealClientsTitle} />
             <ul className="stack-list">
               {service.idealClients.map((item) => (
                 <li key={item}>{item}</li>
@@ -115,7 +121,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
 
       <section className="section section--deep">
         <div className="shell">
-          <SectionLead title="進め方" description="診断から定例伴走まで、優先順位を明確にしながら進めます。" />
+          <SectionLead title={copy.processTitle} description={copy.processDescription} />
           <div className="process-grid">
             {service.process.map((item, index) => (
               <article key={item} className="process-card">
@@ -129,7 +135,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
 
       <section className="section">
         <div className="shell narrow-shell">
-          <SectionLead title="よくある質問" />
+          <SectionLead title={copy.faqTitle} />
           <div className="faq-list">
             {service.faq.map((item) => (
               <details key={item.question} className="faq-item">
@@ -144,13 +150,13 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
       <section className="section section--cta">
         <div className="shell cta-banner">
           <div>
-            <p className="eyebrow">ご相談</p>
-            <h2>課題に応じて、必要な支援範囲をご案内します。</h2>
-            <p>対象資料、研究段階、AI利用状況、発信体制を伺い、いま優先すべき論点と進め方をご提案します。</p>
+            <p className="eyebrow">{copy.ctaEyebrow}</p>
+            <h2>{copy.ctaTitle}</h2>
+            <p>{copy.ctaDescription}</p>
           </div>
           <div className="hero-actions cta-banner__actions">
-            <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
-            <Link href="/#pricing" className="button button--ghost button--light">料金表を見る</Link>
+            <Link href={withLocale("/contact", locale)} className="button button--solid">{copy.primaryCta}</Link>
+            <Link href={withLocale("/#pricing", locale)} className="button button--ghost button--light">{copy.pricingLabel}</Link>
           </div>
         </div>
       </section>

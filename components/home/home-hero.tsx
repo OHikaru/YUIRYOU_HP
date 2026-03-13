@@ -2,13 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
+import { withLocale } from "@/lib/locale";
 
 type HomeHeroProps = {
   trustChips: string[];
+  locale?: SiteLocale;
 };
 
-export function HomeHero({ trustChips }: HomeHeroProps) {
-  const copy = homePageCopy.ja;
+export function HomeHero({ trustChips, locale = "ja" }: HomeHeroProps) {
+  const copy = homePageCopy[locale];
 
   return (
     <section className="hero hero--home">
@@ -18,8 +21,8 @@ export function HomeHero({ trustChips }: HomeHeroProps) {
           <h1>{copy.hero.title}</h1>
           <p className="hero-copy hero-copy--strong">{copy.hero.description}</p>
           <div className="hero-actions">
-            <Link href="/contact" className="button button--solid">{copy.hero.primaryCta}</Link>
-            <Link href="/#pricing" className="button button--ghost-strong">{copy.hero.secondaryCta}</Link>
+            <Link href={withLocale("/contact", locale)} className="button button--solid">{copy.hero.primaryCta}</Link>
+            <Link href={withLocale("/#pricing", locale)} className="button button--ghost-strong">{copy.hero.secondaryCta}</Link>
           </div>
           <div className="hero-note-block">
             <p className="hero-note">{copy.hero.note}</p>
@@ -32,7 +35,16 @@ export function HomeHero({ trustChips }: HomeHeroProps) {
         </div>
         <div className="hero-stage">
           <div className="hero-visual-card hero-visual-card--home">
-            <Image src="/images/page-hero-home.png" alt="YUIRYOU株式会社のトップビジュアル" width={1024} height={1024} priority />
+            <Image src="/images/page-hero-home.png" alt={locale === "en" ? "Top visual of YUIRYOU" : "YUIRYOU株式会社のトップビジュアル"} width={1024} height={1024} priority />
+          </div>
+          <div className="hero-brief-card">
+            <p className="eyebrow">{copy.hero.agendaTitle}</p>
+            <ul className="stack-list">
+              {copy.hero.agendaItems.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p className="hero-brief-card__footnote">{copy.hero.agendaFootnote}</p>
           </div>
           <div className="hero-highlight-grid">
             {copy.hero.highlights.map((item) => (

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 
 import { Breadcrumbs, type BreadcrumbItem } from "@/components/breadcrumbs";
+import type { SiteLocale } from "@/lib/locale";
 
 type PageHeroWithImageProps = {
   items: BreadcrumbItem[];
@@ -17,6 +18,7 @@ type PageHeroWithImageProps = {
   heroClassName?: string;
   imagePriority?: boolean;
   imageClassName?: string;
+  locale?: SiteLocale;
 };
 
 export function PageHeroWithImage({
@@ -33,13 +35,14 @@ export function PageHeroWithImage({
   heroClassName,
   imagePriority = false,
   imageClassName,
+  locale = "ja",
 }: PageHeroWithImageProps) {
   return (
     <div className={`page-hero page-hero--compact ${heroClassName ?? ""}`.trim()}>
       <div className="shell">
         <div className="page-hero__layout">
           <div className={`page-hero__body ${narrowBody ? "page-hero__body--narrow" : ""} ${bodyClassName ?? ""}`.trim()}>
-            <Breadcrumbs items={items} />
+            <Breadcrumbs items={items} locale={locale} />
             <p className="eyebrow">{eyebrow}</p>
             <h1>{title}</h1>
             {children}

@@ -2,55 +2,63 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeroWithImage } from "@/components/page-hero-with-image";
-import { siteConfig } from "@/content/site";
 import { SectionLead } from "@/components/ui";
+import { insightsPageCopy } from "@/content/page-copy";
+import { localizeArticles, localizeTeamMembers } from "@/content/localized-site-data";
+import { siteConfig } from "@/content/site";
+import { type SiteLocale } from "@/lib/locale";
+import { buildMetadata, formatDate } from "@/lib/seo";
 import { getArticles, getTeamMembers } from "@/lib/site-data";
-import { buildMetadata, formatJapaneseDate } from "@/lib/seo";
+
+const locale = "ja" as const;
+const copy = insightsPageCopy[locale];
 
 export const metadata: Metadata = buildMetadata({
-  title: `インサイト / コラム | ${siteConfig.brandName}`,
-  description: "医療AI、女性向けヘルスケア、PoCから論文化、SEO/AIEOの4テーマを、一次情報と実務観点で掘り下げた記事一覧です。",
+  title: copy.metadataTitle,
+  description: copy.metadataDescription,
   path: "/insights",
+  locale,
 });
+
+function buildInsightsList(articles: Awaited<ReturnType<typeof getArticles>>, teamMembers: Awaited<ReturnType<typeof getTeamMembers>>, locale: SiteLocale, activeTag: string) {
+  const localizedArticles = localizeArticles(articles, locale);
+  const localizedTeam = localizeTeamMembers(teamMembers, locale);
+  const tags = Array.from(new Set(localizedArticles.flatMap((article) => article.tags)));
+  const filteredArticles = activeTag ? localizedArticles.filter((article) => article.tags.includes(activeTag)) : localizedArticles;
+  return { localizedTeam, tags, filteredArticles };
+}
 
 export default async function InsightsPage({ searchParams }: { searchParams?: Promise<{ tag?: string }> }) {
   const [articles, teamMembers] = await Promise.all([getArticles(), getTeamMembers()]);
   const resolvedSearchParams: { tag?: string } = searchParams ? await searchParams : {};
-
-  const tags = Array.from(new Set(articles.flatMap((article) => article.tags)));
   const activeTag = resolvedSearchParams.tag ?? "";
-  const filteredArticles = activeTag ? articles.filter((article) => article.tags.includes(activeTag)) : articles;
+  const { localizedTeam, tags, filteredArticles } = buildInsightsList(articles, teamMembers, locale, activeTag);
 
   return (
     <>
       <PageHeroWithImage
-        items={[{ href: "/insights", label: "インサイト / コラム" }]}
-        eyebrow="Insights"
-        title="インサイト / コラム"
+        items={[{ href: "/insights", label: copy.title }]}
+        eyebrow={copy.eyebrow}
+        title={copy.title}
         imageSrc="/images/page-hero-insights.jpg"
-        imageAlt="インサイト / コラムのイメージ"
+        imageAlt={copy.imageAlt}
         imageWidth={1408}
         imageHeight={768}
         imagePriority
+        locale={locale}
       >
         <div className="three-line-summary">
-          <p>医療AI、女性向けヘルスケア、PoCから論文化、SEO/AIEOの4テーマを、一次情報と実務観点で掘り下げています。</p>
-          <p>制度、品質、研究設計、コンテンツ運用の各論点を、企業が意思決定しやすい粒度で整理しています。</p>
-          <p>見出しごとに論点を分け、出典と要点を確認しやすい構成に整えています。</p>
+          {copy.summary.map((line) => <p key={line}>{line}</p>)}
         </div>
       </PageHeroWithImage>
 
       <section className="section">
         <div className="shell">
-          <SectionLead title="タグで絞り込む" description="テーマごとに記事を整理しているので、必要な論点から読み始められます。" />
+          <SectionLead title={copy.filterTitle} description={copy.filterDescription} />
           <div className="filter-row">
-            <Link href="/insights" className={`filter-chip ${activeTag === "" ? "is-active" : ""}`}>
-              すべて
-            </Link>
+            <Link href="/insights" className={"filter-chip" + (activeTag === "" ? " is-active" : "")}>{copy.allTag}</Link>
             {tags.map((tag) => (
-              <Link key={tag} href={`/insights?tag=${encodeURIComponent(tag)}`} className={`filter-chip ${activeTag === tag ? "is-active" : ""}`}>
-                {tag}
-              </Link>
+              <Link key={tag} href={"/insights?tag=" + encodeURIComponent(tag)} className={"filter-chip" + (activeTag === tag ? " is-active" : "")}>{tag}</Link>
             ))}
           </div>
         </div>
@@ -58,10 +66,10 @@ export default async function InsightsPage({ searchParams }: { searchParams?: Pr
 
       <section className="section section--muted">
         <div className="shell">
-          <SectionLead title="記事一覧" description={`${filteredArticles.length}本の記事を表示しています。`} />
+          <SectionLead title={copy.listTitle} description={copy.listDescription(filteredArticles.length)} />
           <div className="card-grid card-grid--two insights-grid">
             {filteredArticles.map((article) => {
-              const author = teamMembers.find((member) => member.id === article.authorId);
+              const author = localizedTeam.find((member) => member.id === article.authorId);
               return (
                 <article key={article.slug} className="panel panel--article panel--article-card">
                   <div className="article-card__header">
@@ -70,13 +78,13 @@ export default async function InsightsPage({ searchParams }: { searchParams?: Pr
                       {article.tags.map((tag) => <span key={tag} className="tag-pill">{tag}</span>)}
                     </div>
                   </div>
-                  <h2><Link href={`/insights/${article.slug}`}>{article.title}</Link></h2>
+                  <h2><Link href={"/insights/" + article.slug}>{article.title}</Link></h2>
                   <p>{article.summary}</p>
                   <ul className="article-mini-list">
                     {article.tldr.slice(0, 2).map((item) => <li key={item}>{item}</li>)}
                   </ul>
                   <div className="article-meta">
-                    <span>{formatJapaneseDate(article.publishedAt)}</span>
+                    <span>{formatDate(article.publishedAt, locale)}</span>
                     <span>{author?.name ?? siteConfig.brandName}</span>
                   </div>
                 </article>

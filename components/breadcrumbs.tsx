@@ -1,16 +1,21 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+
+import { chromeCopy } from "@/content/page-copy";
+import { type SiteLocale, withLocale } from "@/lib/locale";
 
 export type BreadcrumbItem = {
   label: string;
   href: string;
 };
 
-export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+export function Breadcrumbs({ items, locale = "ja" }: { items: BreadcrumbItem[]; locale?: SiteLocale }) {
+  const copy = chromeCopy[locale];
+
   return (
-    <nav aria-label="パンくず" className="breadcrumb">
+    <nav aria-label={copy.breadcrumbAriaLabel} className="breadcrumb">
       <ol>
         <li>
-          <Link href="/">ホーム</Link>
+          <Link href={withLocale("/", locale)}>{copy.homeLabel}</Link>
         </li>
         {items.map((item) => (
           <li key={item.href}>

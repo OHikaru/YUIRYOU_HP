@@ -2,32 +2,37 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeroWithImage } from "@/components/page-hero-with-image";
-import { siteConfig } from "@/content/site";
+import { staticPageCopy } from "@/content/page-copy";
 import { buildMetadata } from "@/lib/seo";
 
+const locale = "ja" as const;
+const copy = staticPageCopy[locale].thanks;
+
 export const metadata: Metadata = buildMetadata({
-  title: `お問い合わせを受け付けました | ${siteConfig.brandName}`,
-  description: "お問い合わせ完了ページです。通常2営業日以内を目安にご連絡します。",
+  title: copy.metadataTitle,
+  description: copy.metadataDescription,
   path: "/thanks",
+  locale,
 });
 
 export default function ThanksPage() {
   return (
     <PageHeroWithImage
-      items={[{ href: "/thanks", label: "お問い合わせ完了" }]}
-      eyebrow="Thanks"
-      title="お問い合わせを受け付けました"
+      items={[{ href: "/thanks", label: copy.title }]}
+      eyebrow={copy.eyebrow}
+      title={copy.title}
       imageSrc="/images/page-hero-thanks.jpg"
-      imageAlt="お問い合わせ完了ページのイメージ"
+      imageAlt={copy.imageAlt}
       imageWidth={1408}
       imageHeight={768}
       narrowBody
       imagePriority
+      locale={locale}
     >
-      <p className="hero-copy">通常2営業日以内を目安にご連絡します。内容確認のうえ、適した進め方をご案内します。</p>
+      <p className="hero-copy">{copy.summary}</p>
       <div className="hero-actions">
-        <Link href="/" className="button button--solid">トップへ戻る</Link>
-        <Link href="/insights" className="button button--ghost">インサイトを見る</Link>
+        <Link href="/" className="button button--solid">{copy.primaryAction}</Link>
+        <Link href="/insights" className="button button--ghost">{copy.secondaryAction}</Link>
       </div>
     </PageHeroWithImage>
   );

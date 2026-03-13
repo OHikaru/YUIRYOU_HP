@@ -1,11 +1,15 @@
-﻿import type { FaqItem } from "@/content/site";
+import type { FaqItem } from "@/content/site";
 import { SectionLead } from "@/components/ui";
+import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
 
-export function HomeFaq({ faq }: { faq: FaqItem[] }) {
+export function HomeFaq({ faq, locale = "ja" }: { faq: FaqItem[]; locale?: SiteLocale }) {
+  const copy = homePageCopy[locale].faq;
+
   return (
     <section className="section">
       <div className="shell narrow-shell">
-        <SectionLead eyebrow="FAQ" title="よくある質問" />
+        <SectionLead eyebrow={copy.eyebrow} title={copy.title} />
         <div className="faq-list">
           {faq.map((item) => (
             <details key={item.question} className="faq-item">
@@ -18,4 +22,3 @@ export function HomeFaq({ faq }: { faq: FaqItem[] }) {
     </section>
   );
 }
-

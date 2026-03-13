@@ -2,21 +2,22 @@ import Link from "next/link";
 
 import type { TeamMember } from "@/content/site";
 import { SectionLead } from "@/components/ui";
+import { homePageCopy } from "@/content/home-page-copy";
+import type { SiteLocale } from "@/lib/locale";
+import { withLocale } from "@/lib/locale";
 
-const researchmapLinks: Record<string, { href: string; label: string }> = {
-  "obgyn-rct": { href: "https://researchmap.jp/tmitoma", label: "三苫 智裕のresearchmap" },
-  "obgyn-ai": { href: "https://researchmap.jp/Hikaru_Ooba", label: "大羽 輝のresearchmap" },
+const researchmapLinks: Record<string, string> = {
+  "obgyn-rct": "https://researchmap.jp/tmitoma",
+  "obgyn-ai": "https://researchmap.jp/Hikaru_Ooba",
 };
 
-export function HomeTeam({ members }: { members: TeamMember[] }) {
+export function HomeTeam({ members, locale = "ja" }: { members: TeamMember[]; locale?: SiteLocale }) {
+  const copy = homePageCopy[locale].team;
+
   return (
     <section className="section">
       <div className="shell">
-        <SectionLead
-          eyebrow="医師チーム"
-          title="チーム紹介"
-          description="3名の医師が役割を分担し、研究・AI・発信の論点を横断して支援します。"
-        />
+        <SectionLead eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         <div className="card-grid card-grid--three card-grid--team team-preview-grid">
           {members.map((member) => {
             const profileLink = researchmapLinks[member.id];
@@ -28,11 +29,11 @@ export function HomeTeam({ members }: { members: TeamMember[] }) {
                 <p>{member.bio}</p>
                 <div className="team-preview-card__links">
                   {profileLink ? (
-                    <a href={profileLink.href} target="_blank" rel="noreferrer" className="support-area-card__link">
-                      researchmapを見る
+                    <a href={profileLink} target="_blank" rel="noreferrer" className="support-area-card__link">
+                      {copy.researchmapLabel}
                     </a>
                   ) : null}
-                  <Link href="/team" className="support-area-card__link">詳細を見る</Link>
+                  <Link href={withLocale("/team", locale)} className="support-area-card__link">{copy.detailLabel}</Link>
                 </div>
               </article>
             );
