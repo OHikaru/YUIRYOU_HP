@@ -12,7 +12,7 @@ const researchmapLinks: Record<string, { href: string; label: string }> = {
 
 export const metadata: Metadata = buildMetadata({
   title: "チーム紹介 | 三苫 智裕・大羽 輝・豊田 康介",
-  description: "三苫 智裕、大羽 輝、豊田 康介の医師チームを紹介。英語・RCT・研究実務、AI・情報品質、YouTube・広告設計を横断して支援します。",
+  description: "三苫 智裕、大羽 輝、豊田 康介の3名で構成する医療コンサルティングチーム。研究・AI・発信の役割分担を紹介します。",
   path: "/team",
 });
 
@@ -45,15 +45,19 @@ export default async function TeamPage() {
         imagePriority
       >
         <div className="three-line-summary">
-          <p>三苫 智裕、大羽 輝、豊田 康介の医師チームです。</p>
-          <p>英語・RCT・研究実務、AI・情報品質、YouTube・広告設計を横断して支援します。</p>
-          <p>役割分担に加え、公開研究実績や主要論文まで確認できる構成にしています。</p>
+          <p>三苫 智裕、大羽 輝、豊田 康介の3名で構成する医療コンサルティングチームです。</p>
+          <p>研究・AI・情報品質・発信設計を役割分担し、事業課題に応じて横断的に支援します。</p>
+          <p>公開情報は2026年3月13日時点で確認できる内容を基準に整理しています。</p>
         </div>
       </PageHeroWithImage>
 
       <section className="section">
         <div className="shell">
-          <SectionLead eyebrow="メンバー紹介" title="専門性の異なる3名が、1社の課題に横断して関わります" />
+          <SectionLead
+            eyebrow="Member"
+            title="専門性の異なる3名が、ひとつの案件に連携して関わります"
+            description="研究、AI、発信の論点を切り分けず、事業の優先順位に沿って支援できる体制です。"
+          />
           <div className="team-list">
             {teamMembers.map((member) => {
               const profileLink = researchmapLinks[member.id];
@@ -103,9 +107,9 @@ export default async function TeamPage() {
             })}
           </div>
           <div className="panel panel--accent">
-            <p className="eyebrow">掲載情報</p>
-            <p>三苫 智裕、大羽 輝の研究実績と主要論文は、2026年3月13日時点で確認できる researchmap 公開情報をもとに企業向けに再構成しています。</p>
-            <p>所属、論文、研究テーマは公開情報に基づいて反映し、導入実績やロゴなどは事実確認が取れたものから掲載します。</p>
+            <p className="eyebrow">掲載情報について</p>
+            <p>三苫 智裕、大羽 輝の研究実績・主要論文は、2026年3月13日時点で確認した researchmap の公開情報をもとに、企業向けに要点を整理しています。</p>
+            <p>掲載実績や論文は公開情報を基準に構成しており、より詳細な確認が必要な場合は個別にご案内します。</p>
           </div>
         </div>
       </section>

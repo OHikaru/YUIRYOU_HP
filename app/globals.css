@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap");
+
 :root {
   color-scheme: light;
   --bg: #f5efe3;
@@ -27,17 +29,17 @@ body {
     radial-gradient(circle at top right, rgba(17, 112, 115, 0.16), transparent 30%),
     radial-gradient(circle at top left, rgba(209, 143, 47, 0.15), transparent 26%),
     linear-gradient(180deg, #faf6ef 0%, #f4ecdf 100%);
-  font-family: "Noto Sans JP", "Meiryo", "Hiragino Sans", "Yu Gothic", "Yu Gothic UI", sans-serif;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
 }
 img { max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
-p { line-height: 1.75; }
+p { line-height: 1.82; }
 h1, h2, h3 {
   margin: 0;
   color: var(--brand);
-  font-family: "Noto Sans JP", "Meiryo", "Hiragino Sans", "Yu Gothic", "Yu Gothic UI", sans-serif;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
   line-height: 1.18;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   font-weight: 700;
   text-wrap: balance;
 }
@@ -1002,15 +1004,15 @@ body {
     radial-gradient(circle at top right, rgba(182, 154, 91, 0.07), transparent 24%),
     radial-gradient(circle at top left, rgba(0, 32, 99, 0.05), transparent 26%),
     linear-gradient(180deg, #ffffff 0%, #f9f9f9 48%, #f5f7fb 100%);
-  font-family: "Noto Sans JP", "Meiryo", "Hiragino Sans", "Yu Gothic", "Yu Gothic UI", sans-serif;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
 }
 
 h1, h2, h3 {
   margin: 0;
   color: var(--brand);
-  font-family: "Noto Sans JP", "Meiryo", "Hiragino Sans", "Yu Gothic", "Yu Gothic UI", sans-serif;
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
   line-height: 1.18;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   font-weight: 700;
   text-wrap: balance;
 }
@@ -2221,5 +2223,291 @@ h1, h2, h3 {
 @media (max-width: 900px) {
   .team-card__details-grid {
     grid-template-columns: 1fr;
+  }
+}
+/* final copy and responsive refresh */
+.hero-copy,
+.section-description,
+.page-hero p,
+.panel p,
+.stack-list li,
+.check-list li,
+.footer-list li,
+.contact-form label span,
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+button,
+.button {
+  font-family: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
+}
+
+.brand-mark__text strong,
+.site-nav a,
+.pricing-card__label,
+.hero-highlight-card__label,
+.eyebrow {
+  letter-spacing: 0.08em;
+}
+
+.hero-copy-cluster,
+.hero-stage,
+.cta-banner__actions,
+.team-card__details-grid,
+.page-hero__layout,
+.site-nav__links {
+  min-width: 0;
+}
+
+.hero-stage {
+  display: grid;
+  gap: 18px;
+}
+
+.hero-visual-card--home {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.hero-visual-card--home img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.support-area-grid,
+.fit-grid,
+.insights-grid,
+.pricing-grid-shell,
+.team-preview-grid {
+  align-items: stretch;
+}
+
+.support-area-card,
+.fit-card,
+.panel--article-card,
+.team-preview-card,
+.panel--pricing {
+  min-height: 100%;
+}
+
+.page-hero__media {
+  align-self: stretch;
+}
+
+.page-hero__image {
+  height: 100%;
+  min-height: 100%;
+}
+
+.pricing-guardrails {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pricing-guardrails p {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(18, 35, 43, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.team-preview-card__links a,
+.team-card__external-link a,
+.support-area-card__link,
+.footer-list a {
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 1240px) {
+  .shell {
+    width: min(100vw - 32px, 1200px);
+  }
+
+  .hero__layout--editorial {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero-stage {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: stretch;
+  }
+
+  .hero-highlight-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .page-hero__layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .page-hero__media {
+    max-width: 840px;
+  }
+
+  .card-grid--five {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process-grid,
+  .timeline-grid,
+  .related-articles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .site-header__inner {
+    align-items: flex-start;
+  }
+
+  .site-nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .site-nav__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+
+  .card-grid--three,
+  .card-grid--two,
+  .card-grid--pricing,
+  .card-grid--team,
+  .form-grid,
+  .team-card__details-grid,
+  .pricing-guardrails {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid--five,
+  .process-grid,
+  .timeline-grid,
+  .related-articles,
+  .hero-highlight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-two,
+  .cta-banner,
+  .site-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .shell {
+    width: min(100vw - 24px, 1200px);
+  }
+
+  .site-header__inner,
+  .site-footer__bottom,
+  .brand-mark,
+  .site-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site-nav__links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .hero h1,
+  .page-hero h1,
+  .section-lead h2 {
+    max-width: 100%;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    line-height: 1.18;
+  }
+
+  .hero-copy,
+  .section-description,
+  .page-hero p {
+    font-size: 0.98rem;
+  }
+
+  .hero-actions,
+  .cta-banner__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-stage,
+  .hero-highlight-grid,
+  .card-grid--five,
+  .card-grid--three,
+  .card-grid--two,
+  .card-grid--pricing,
+  .process-grid,
+  .timeline-grid,
+  .related-articles,
+  .page-hero__layout,
+  .page-hero__media,
+  .page-hero__image,
+  .comparison-mobile-list,
+  .pricing-guardrails,
+  .team-card__details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stage {
+    gap: 16px;
+  }
+
+  .panel,
+  .team-card,
+  .contact-form,
+  .cta-banner,
+  .process-card,
+  .timeline-card,
+  .comparison-mobile-card,
+  .team-card__detail-block {
+    padding: 20px;
+  }
+
+  .page-hero__image,
+  .panel--visual-clean img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .chip-row--hero {
+    gap: 8px;
+  }
+
+  .chip {
+    font-size: 0.86rem;
+    padding: 9px 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand-mark__text small {
+    display: none;
+  }
+
+  .site-nav__links {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card__top {
+    align-items: flex-start;
+  }
+
+  .pricing-card__label,
+  .filter-chip,
+  .tag-pill,
+  .chip {
+    font-size: 0.8rem;
   }
 }

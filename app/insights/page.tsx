@@ -9,7 +9,7 @@ import { buildMetadata, formatJapaneseDate } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: `インサイト / コラム | ${siteConfig.brandName}`,
-  description: "医療AI、女性向けヘルスケア、論文化、SEO/AIEOに関する重点4テーマを、公式資料と実務視点で掘り下げた記事一覧です。",
+  description: "医療AI、女性向けヘルスケア、PoCから論文化、SEO/AIEOの4テーマを、一次情報と実務観点で掘り下げた記事一覧です。",
   path: "/insights",
 });
 
@@ -25,7 +25,7 @@ export default async function InsightsPage({ searchParams }: { searchParams?: Pr
     <>
       <PageHeroWithImage
         items={[{ href: "/insights", label: "インサイト / コラム" }]}
-        eyebrow="インサイト"
+        eyebrow="Insights"
         title="インサイト / コラム"
         imageSrc="/images/page-hero-insights.jpg"
         imageAlt="インサイト / コラムのイメージ"
@@ -42,7 +42,7 @@ export default async function InsightsPage({ searchParams }: { searchParams?: Pr
 
       <section className="section">
         <div className="shell">
-          <SectionLead title="タグで絞り込む" description="テーマごとに記事を整理しています。重点テーマごとに深く読めるよう、タグ軸で一覧化しています。" />
+          <SectionLead title="タグで絞り込む" description="テーマごとに記事を整理しているので、必要な論点から読み始められます。" />
           <div className="filter-row">
             <Link href="/insights" className={`filter-chip ${activeTag === "" ? "is-active" : ""}`}>
               すべて

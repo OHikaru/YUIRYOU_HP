@@ -5,7 +5,7 @@ import { siteConfig } from "@/content/site";
 
 const navItems = [
   { href: "/services/medical-scientific-advisory", label: "支援領域" },
-  { href: "/team", label: "チーム" },
+  { href: "/team", label: "チーム紹介" },
   { href: "/insights", label: "インサイト" },
   { href: "/contact", label: "お問い合わせ" },
 ];
@@ -18,7 +18,7 @@ export function SiteHeader() {
           <Image src="/images/logo-yuiryou.png" alt="YUIRYOU株式会社のロゴ" width={1878} height={530} className="brand-mark__logo" priority />
           <span className="brand-mark__text">
             <strong>{siteConfig.brandName}</strong>
-            <small>Medical Consulting For Healthcare Businesses</small>
+            <small>Medical Consulting for Healthcare Businesses</small>
           </span>
         </Link>
         <nav className="site-nav" aria-label="グローバルナビゲーション">

@@ -4,7 +4,11 @@ export function HomeIssues({ issues }: { issues: string[] }) {
   return (
     <section className="section section--muted">
       <div className="shell">
-        <SectionLead eyebrow="課題整理" title="こんな課題はありませんか" description="医療の正確性だけでも、集客だけでも足りない企業に向けた設計です。" />
+        <SectionLead
+          eyebrow="課題"
+          title="こんな課題はありませんか"
+          description="医療接点のある事業では、LP、営業資料、研究、AI、発信のどこかで判断が止まりやすくなります。"
+        />
         <div className="card-grid card-grid--three issue-grid">
           {issues.map((issue, index) => (
             <article key={issue} className="panel panel--soft issue-card">

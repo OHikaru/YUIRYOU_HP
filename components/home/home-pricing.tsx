@@ -26,7 +26,7 @@ export function HomePricing({ plans }: { plans: PricingPlan[] }) {
           {plans.map((plan, index) => (
             <article key={plan.name} className={`panel panel--pricing ${pricingCardClasses[index] ?? ""}`}>
               <div className="pricing-card__top">
-                <span className="pricing-card__label">{copy.pricing.labels[index] ?? "伴走"}</span>
+                <span className="pricing-card__label">{copy.pricing.labels[index] ?? "プラン"}</span>
                 <p className="pricing-card__name">{plan.name}</p>
               </div>
               <div className="pricing-card__body">
@@ -43,9 +43,9 @@ export function HomePricing({ plans }: { plans: PricingPlan[] }) {
           ))}
         </div>
         <div className="pricing-guardrails pricing-guardrails--light">
-          <p>法人向けサービスです。</p>
-          <p>患者個人の相談は対象外です。</p>
-          <p>法務・薬機法の最終判断は専門家連携で行います。</p>
+          <p>法人向け支援です。</p>
+          <p>患者個人の診療相談は対象外です。</p>
+          <p>法務・薬機法・医療広告の最終判断は必要に応じて専門家連携で行います。</p>
         </div>
       </div>
     </section>

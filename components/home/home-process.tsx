@@ -12,7 +12,11 @@ export function HomeProcess({ supportFlow }: { supportFlow: FlowItem[] }) {
     <section className="section">
       <div className="shell grid-two grid-two--wide-gap">
         <div>
-          <SectionLead eyebrow="支援の流れ" title="支援イメージ" description="診断・設計・伴走の3段階で、何を前に進めるかを整理します。" />
+          <SectionLead
+            eyebrow="支援イメージ"
+            title="診断・設計・伴走の3段階で進めます"
+            description="現状整理から優先順位付け、実行支援までを切り分けずに前進させる構成です。"
+          />
           <div className="process-grid">
             {supportFlow.map((item, index) => (
               <article key={item.title} className="process-card">

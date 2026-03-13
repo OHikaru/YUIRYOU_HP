@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "お問い合わせ | 法人向け医療コンサルティング",
-  description: "法人向けの医療コンサルティングに関するお問い合わせページ。無料相談、診断パック、継続伴走の相談を受け付けています。",
+  description: "法人向け医療コンサルティングに関するお問い合わせページです。課題の概要と希望時期をお送りください。",
   path: "/contact",
 });
 
@@ -24,8 +24,8 @@ export default function ContactPage() {
         imagePriority
       >
         <div className="three-line-summary">
-          <p>法人向けサービスです。患者個人の診療相談は対象外です。</p>
-          <p>無料相談または診断パックの相談内容をお送りください。</p>
+          <p>法人向け支援のご相談専用フォームです。</p>
+          <p>対象資料、現在の課題、想定時期がわかる範囲であれば十分です。</p>
           <p>通常2営業日以内を目安にご連絡します。</p>
         </div>
       </PageHeroWithImage>
@@ -35,9 +35,9 @@ export default function ContactPage() {
             <div className="panel panel--accent">
               <p className="eyebrow">Before Contact</p>
               <ul className="stack-list">
-                <li>法人向けサービスです。患者個人の相談は対象外です。</li>
-                <li>表現リスクの整理は支援しますが、法務・薬機法の最終判断は専門家連携です。</li>
-                <li>価格感を含めた初回整理を行います。</li>
+                <li>法人向け支援のみを対象としています。</li>
+                <li>法務・薬機法・医療広告の最終判断は必要に応じて専門家と連携します。</li>
+                <li>課題が散らばっていても問題ありません。現状がわかる資料があれば十分です。</li>
               </ul>
             </div>
           </div>

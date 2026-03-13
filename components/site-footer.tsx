@@ -10,9 +10,10 @@ export function SiteFooter() {
         <div className="site-footer__brand">
           <Image src="/images/logo-yuiryou.png" alt="YUIRYOU株式会社のロゴ" width={1878} height={530} className="site-footer__logo" />
           <p className="eyebrow">Healthcare Business Partner</p>
-          <h2>医療監修の先まで踏み込み、研究・AI・発信の実務を前に進めるための法人向け医療コンサルティング。</h2>
+          <h2>医療の正確性と事業推進の両立を、研究・AI・発信まで一気通貫で支援します。</h2>
           <p>
-            本サイトは法人向けの情報提供と伴走支援を目的としています。患者個人の診療相談や個別の治療判断は行いません。
+            YUIRYOU株式会社は、フェムテック、ヘルスケアSaaS、医療メディア、海外準備中のスタートアップに向けて、
+            医療・研究・AI・発信の論点を横断して支援する法人向け医療コンサルティングチームです。
           </p>
         </div>
         <div className="site-footer__nav-block">
@@ -36,7 +37,7 @@ export function SiteFooter() {
       </div>
       <div className="shell site-footer__bottom">
         <p>{siteConfig.phoneLabel}</p>
-        <p>法務や薬機法の最終判断は専門家連携で行います。情報の完全性を保証するものではありません。</p>
+        <p>患者個人の診療相談は対象外です。法務・薬機法・医療広告の最終判断は必要に応じて専門家連携で行います。</p>
       </div>
     </footer>
   );

@@ -14,7 +14,11 @@ export function HomeSupportAreas({ supportAreas }: { supportAreas: SupportArea[]
   return (
     <section className="section">
       <div className="shell">
-        <SectionLead eyebrow="支援領域" title="5つの支援領域を、1つのチームで横断します" description="研究、AI、発信、英語対応を個別発注せず、同じ文脈で進められる体制です。" />
+        <SectionLead
+          eyebrow="支援領域"
+          title="研究・AI・発信を、1つのチームで横断支援します"
+          description="個別発注で分断しやすい論点を、同じ事業文脈で束ねて前に進めます。"
+        />
         <div className="card-grid card-grid--five support-area-grid">
           {supportAreas.map((area, index) => (
             <article key={area.title} className="panel panel--service support-area-card">

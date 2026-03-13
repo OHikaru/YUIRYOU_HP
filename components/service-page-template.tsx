@@ -57,7 +57,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
       <section className="section">
         <div className="shell grid-two">
           <div>
-            <SectionLead eyebrow="このページでわかること" title="支援内容を短時間で把握できます" />
+            <SectionLead eyebrow="このページでわかること" title="支援範囲を短時間で把握できます" />
             <ul className="check-list">
               {service.understandingPoints.map((point) => (
                 <li key={point}>{point}</li>
@@ -66,7 +66,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
           </div>
           <div className="panel panel--accent">
             <p className="eyebrow">対象外</p>
-            <p>患者個人の診療相談や個別の治療判断は対象外です。法務・薬機法の最終判断は必要に応じて専門家連携で行います。</p>
+            <p>患者個人の診療相談や個別の治療判断は対象外です。法務・薬機法・医療広告の最終判断は必要に応じて専門家連携で行います。</p>
           </div>
         </div>
       </section>
@@ -115,7 +115,7 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
 
       <section className="section section--deep">
         <div className="shell">
-          <SectionLead title="進め方" description="診断から定例伴走まで、優先順位を明確にしたうえで進めます。" />
+          <SectionLead title="進め方" description="診断から定例伴走まで、優先順位を明確にしながら進めます。" />
           <div className="process-grid">
             {service.process.map((item, index) => (
               <article key={item} className="process-card">
@@ -145,12 +145,12 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
         <div className="shell cta-banner">
           <div>
             <p className="eyebrow">ご相談</p>
-            <h2>法人向け無料相談で、優先順位と支援範囲を整理します</h2>
-            <p>現状の資料、研究計画、発信課題を共有いただければ、事業フェーズに応じた論点整理と想定プランをご案内します。</p>
+            <h2>課題に応じて、必要な支援範囲をご案内します。</h2>
+            <p>対象資料、研究段階、AI利用状況、発信体制を伺い、いま優先すべき論点と進め方をご提案します。</p>
           </div>
-          <div className="hero-actions">
+          <div className="hero-actions cta-banner__actions">
             <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
-            <Link href="/#pricing" className="button button--ghost button--light">料金プランを見る</Link>
+            <Link href="/#pricing" className="button button--ghost button--light">料金表を見る</Link>
           </div>
         </div>
       </section>
