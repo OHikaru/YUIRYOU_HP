@@ -171,7 +171,7 @@ export const chromeCopy: Record<SiteLocale, ChromeCopy> = {
       { href: "/contact", label: "お問い合わせ" },
     ],
     primaryCta: "法人向け相談を予約する",
-    languageSwitchLabel: "English",
+    languageSwitchLabel: "EN",
     languageSwitchAriaLabel: "英語ページへ切り替える",
     footerEyebrow: "Healthcare Business Partner",
     footerTitle: "医療の正確性と事業推進の両立を、研究・AI・発信まで一気通貫で支援します。",
