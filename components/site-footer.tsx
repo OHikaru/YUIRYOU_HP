@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "@/images/YUIRYOU_logo.png";
 import { siteConfig } from "@/content/site";
 
 export function SiteFooter() {
@@ -9,7 +8,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="shell site-footer__grid">
         <div className="site-footer__brand">
-          <Image src={logo} alt="YUIRYOU株式会社のロゴ" className="site-footer__logo" />
+          <Image src="/images/logo-yuiryou.png" alt="YUIRYOU株式会社のロゴ" width={1878} height={530} className="site-footer__logo" />
           <p className="eyebrow">Healthcare Business Partner</p>
           <h2>医療監修の先まで踏み込み、研究・AI・発信の実務を前に進めるための法人向け医療コンサルティング。</h2>
           <p>

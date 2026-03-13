@@ -1,8 +1,8 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import type { ServiceDetail } from "@/content/site";
 import { siteConfig } from "@/content/site";
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { JsonLd, SectionLead } from "@/components/ui";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -33,22 +33,26 @@ export function ServicePageTemplate({ service }: { service: ServiceDetail }) {
   return (
     <>
       <JsonLd data={[serviceSchema, breadcrumbSchema]} />
-      <div className="page-hero page-hero--compact">
-        <div className="shell">
-          <Breadcrumbs items={[{ href: service.path, label: service.title }]} />
-          <p className="eyebrow">支援サービス</p>
-          <h1>{service.title}</h1>
-          <div className="three-line-summary">
-            {service.summary.map((line) => (
-              <p key={line}>{line}</p>
-            ))}
-          </div>
-          <div className="hero-actions">
-            <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
-            <Link href="/#pricing" className="button button--ghost">料金表を見る</Link>
-          </div>
+      <PageHeroWithImage
+        items={[{ href: service.path, label: service.title }]}
+        eyebrow="支援サービス"
+        title={service.title}
+        imageSrc="/images/page-hero-services.jpg"
+        imageAlt={`${service.title}のイメージ`}
+        imageWidth={1408}
+        imageHeight={768}
+        imagePriority
+      >
+        <div className="three-line-summary">
+          {service.summary.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
         </div>
-      </div>
+        <div className="hero-actions">
+          <Link href="/contact" className="button button--solid">{siteConfig.primaryCta.label}</Link>
+          <Link href="/#pricing" className="button button--ghost">料金表を見る</Link>
+        </div>
+      </PageHeroWithImage>
 
       <section className="section">
         <div className="shell grid-two">

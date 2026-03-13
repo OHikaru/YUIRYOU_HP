@@ -1,6 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { siteConfig } from "@/content/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -21,16 +21,21 @@ export const metadata: Metadata = buildMetadata({
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <div className="page-hero page-hero--compact">
-        <div className="shell narrow-shell">
-          <Breadcrumbs items={[{ href: "/privacy-policy", label: "個人情報保護指針" }]} />
-          <p className="eyebrow">Privacy Guideline</p>
-          <h1>個人情報保護指針</h1>
-          <p className="hero-copy">
-            当社は、法人向け医療コンサルティングの提供にあたり、個人情報の保護を重要な責務と認識し、個人情報の保護に関する法律その他の関係法令に従って適切に取り扱います。
-          </p>
-        </div>
-      </div>
+      <PageHeroWithImage
+        items={[{ href: "/privacy-policy", label: "個人情報保護指針" }]}
+        eyebrow="Privacy Guideline"
+        title="個人情報保護指針"
+        imageSrc="/images/page-hero-home.png"
+        imageAlt="個人情報保護指針のイメージ"
+        imageWidth={1024}
+        imageHeight={1024}
+        narrowBody
+        imagePriority
+      >
+        <p className="hero-copy">
+          当社は、法人向け医療コンサルティングの提供にあたり、個人情報の保護を重要な責務と認識し、個人情報の保護に関する法律その他の関係法令に従って適切に取り扱います。
+        </p>
+      </PageHeroWithImage>
       <section className="section">
         <div className="shell narrow-shell prose-block">
           <h2>1. 事業者情報</h2>

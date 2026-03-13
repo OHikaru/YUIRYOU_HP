@@ -1,6 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { siteConfig } from "@/content/site";
 import { buildMetadata } from "@/lib/seo";
 
@@ -13,14 +13,19 @@ export const metadata: Metadata = buildMetadata({
 export default function DisclaimerPage() {
   return (
     <>
-      <div className="page-hero page-hero--compact">
-        <div className="shell narrow-shell">
-          <Breadcrumbs items={[{ href: "/disclaimer", label: "免責事項" }]} />
-          <p className="eyebrow">Disclaimer</p>
-          <h1>免責事項</h1>
-          <p className="hero-copy">本サイトは法人向けの情報提供を目的としており、個別の医療判断、診断、治療方針の提示を行うものではありません。</p>
-        </div>
-      </div>
+      <PageHeroWithImage
+        items={[{ href: "/disclaimer", label: "免責事項" }]}
+        eyebrow="Disclaimer"
+        title="免責事項"
+        imageSrc="/images/page-hero-home.png"
+        imageAlt="免責事項のイメージ"
+        imageWidth={1024}
+        imageHeight={1024}
+        narrowBody
+        imagePriority
+      >
+        <p className="hero-copy">本サイトは法人向けの情報提供を目的としており、個別の医療判断、診断、治療方針の提示を行うものではありません。</p>
+      </PageHeroWithImage>
       <section className="section">
         <div className="shell narrow-shell prose-block">
           <h2>法人向け情報提供</h2>

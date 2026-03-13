@@ -1,7 +1,7 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { JsonLd, SectionLead } from "@/components/ui";
 import { absoluteUrl, buildMetadata } from "@/lib/seo";
 import { getTeamMembers } from "@/lib/site-data";
@@ -29,18 +29,22 @@ export default async function TeamPage() {
   return (
     <>
       <JsonLd data={peopleSchema} />
-      <div className="page-hero page-hero--compact">
-        <div className="shell">
-          <Breadcrumbs items={[{ href: "/team", label: "チーム紹介" }]} />
-          <p className="eyebrow">医師チーム</p>
-          <h1>チーム紹介</h1>
-          <div className="three-line-summary">
-            <p>三苫 智裕、大羽 輝、豊田 康介の医師チームです。</p>
-            <p>英語・RCT・研究実務、AI・情報品質、YouTube・広告設計を横断して支援します。</p>
-            <p>役割分担だけでなく、研究実績や公開論文も確認できる構成にしています。</p>
-          </div>
+      <PageHeroWithImage
+        items={[{ href: "/team", label: "チーム紹介" }]}
+        eyebrow="医師チーム"
+        title="チーム紹介"
+        imageSrc="/images/page-hero-team.jpg"
+        imageAlt="チーム紹介のイメージ"
+        imageWidth={1408}
+        imageHeight={768}
+        imagePriority
+      >
+        <div className="three-line-summary">
+          <p>三苫 智裕、大羽 輝、豊田 康介の医師チームです。</p>
+          <p>英語・RCT・研究実務、AI・情報品質、YouTube・広告設計を横断して支援します。</p>
+          <p>役割分担だけでなく、研究実績や公開論文も確認できる構成にしています。</p>
         </div>
-      </div>
+      </PageHeroWithImage>
 
       <section className="section">
         <div className="shell">

@@ -1,7 +1,7 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ContactForm } from "@/components/contact-form";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -13,18 +13,22 @@ export const metadata: Metadata = buildMetadata({
 export default function ContactPage() {
   return (
     <>
-      <div className="page-hero page-hero--compact">
-        <div className="shell">
-          <Breadcrumbs items={[{ href: "/contact", label: "お問い合わせ" }]} />
-          <p className="eyebrow">Contact</p>
-          <h1>お問い合わせ</h1>
-          <div className="three-line-summary">
-            <p>法人向けサービスです。患者個人の診療相談は対象外です。</p>
-            <p>無料相談または診断パックの相談内容をお送りください。</p>
-            <p>通常2営業日以内を目安にご連絡します。</p>
-          </div>
+      <PageHeroWithImage
+        items={[{ href: "/contact", label: "お問い合わせ" }]}
+        eyebrow="Contact"
+        title="お問い合わせ"
+        imageSrc="/images/page-hero-contact.jpg"
+        imageAlt="お問い合わせページのイメージ"
+        imageWidth={1408}
+        imageHeight={768}
+        imagePriority
+      >
+        <div className="three-line-summary">
+          <p>法人向けサービスです。患者個人の診療相談は対象外です。</p>
+          <p>無料相談または診断パックの相談内容をお送りください。</p>
+          <p>通常2営業日以内を目安にご連絡します。</p>
         </div>
-      </div>
+      </PageHeroWithImage>
       <section className="section">
         <div className="shell grid-two">
           <div>

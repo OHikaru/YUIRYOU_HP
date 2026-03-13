@@ -32,7 +32,7 @@ export function HomeHero({ trustChips }: HomeHeroProps) {
         </div>
         <div className="hero-stage">
           <div className="hero-visual-card hero-visual-card--home">
-            <Image src="/images/hero-medical-consulting.svg" alt="医師3名による法人向け医療コンサルティングのイメージ" width={800} height={600} priority />
+            <Image src="/images/page-hero-home.png" alt="YUIRYOU株式会社のトップビジュアル" width={1024} height={1024} priority />
           </div>
           <div className="hero-highlight-grid">
             {copy.hero.highlights.map((item) => (

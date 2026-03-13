@@ -1,7 +1,7 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { siteConfig } from "@/content/site";
 import { SectionLead } from "@/components/ui";
 import { getArticles, getTeamMembers } from "@/lib/site-data";
@@ -23,18 +23,22 @@ export default async function InsightsPage({ searchParams }: { searchParams?: Pr
 
   return (
     <>
-      <div className="page-hero page-hero--compact article-hero article-hero--index">
-        <div className="shell">
-          <Breadcrumbs items={[{ href: "/insights", label: "インサイト / コラム" }]} />
-          <p className="eyebrow">インサイト</p>
-          <h1>インサイト / コラム</h1>
-          <div className="three-line-summary">
-            <p>医療AI、女性向けヘルスケア、PoCから論文化、SEO/AIEOの4テーマを、一次情報と実務観点で掘り下げています。</p>
-            <p>小手先のノウハウではなく、事業判断、品質管理、研究設計、発信方針にそのまま使える論点を整理しています。</p>
-            <p>各記事はTL;DR、背景、具体策、FAQ、著者情報、出典を統一し、商談前共有や社内説明資料にも転用しやすい構成です。</p>
-          </div>
+      <PageHeroWithImage
+        items={[{ href: "/insights", label: "インサイト / コラム" }]}
+        eyebrow="インサイト"
+        title="インサイト / コラム"
+        imageSrc="/images/page-hero-insights.jpg"
+        imageAlt="インサイト / コラムのイメージ"
+        imageWidth={1408}
+        imageHeight={768}
+        imagePriority
+      >
+        <div className="three-line-summary">
+          <p>医療AI、女性向けヘルスケア、PoCから論文化、SEO/AIEOの4テーマを、一次情報と実務観点で掘り下げています。</p>
+          <p>小手先のノウハウではなく、事業判断、品質管理、研究設計、発信方針にそのまま使える論点を整理しています。</p>
+          <p>各記事はTL;DR、背景、具体策、FAQ、著者情報、出典を統一し、商談前共有や社内説明資料にも転用しやすい構成です。</p>
         </div>
-      </div>
+      </PageHeroWithImage>
 
       <section className="section">
         <div className="shell">

@@ -1,8 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeroWithImage } from "@/components/page-hero-with-image";
 import { JsonLd, SectionLead } from "@/components/ui";
 import { siteConfig } from "@/content/site";
 import { getArticleBySlug, getArticles, getTeamMembers } from "@/lib/site-data";
@@ -54,22 +54,28 @@ export default async function InsightDetailPage({ params }: { params: Promise<{ 
     <>
       <JsonLd data={articleSchema} />
       <article>
-        <div className="page-hero page-hero--compact article-hero">
-          <div className="shell narrow-shell">
-            <Breadcrumbs items={[{ href: "/insights", label: "インサイト / コラム" }, { href: `/insights/${article.slug}`, label: article.title }]} />
-            <p className="eyebrow">{article.category}</p>
-            <h1>{article.title}</h1>
-            <div className="article-meta article-meta--hero">
-              <span>{formatJapaneseDate(article.publishedAt)}</span>
-              <span>{author?.name ?? fallbackName}</span>
-              <span>{author?.role ?? fallbackRole}</span>
-            </div>
-            <div className="tag-row tag-row--hero">
-              {article.tags.map((tag) => <span key={tag} className="tag-pill tag-pill--light">{tag}</span>)}
-            </div>
-            <p className="hero-copy">{article.summary}</p>
+        <PageHeroWithImage
+          items={[{ href: "/insights", label: "インサイト / コラム" }, { href: `/insights/${article.slug}`, label: article.title }]}
+          eyebrow={article.category}
+          title={article.title}
+          imageSrc="/images/page-hero-insights.jpg"
+          imageAlt={`${article.title}のイメージ`}
+          imageWidth={1408}
+          imageHeight={768}
+          heroClassName="article-hero"
+          bodyClassName="page-hero__body--article"
+          imagePriority
+        >
+          <div className="article-meta article-meta--hero">
+            <span>{formatJapaneseDate(article.publishedAt)}</span>
+            <span>{author?.name ?? fallbackName}</span>
+            <span>{author?.role ?? fallbackRole}</span>
           </div>
-        </div>
+          <div className="tag-row tag-row--hero">
+            {article.tags.map((tag) => <span key={tag} className="tag-pill tag-pill--light">{tag}</span>)}
+          </div>
+          <p className="hero-copy">{article.summary}</p>
+        </PageHeroWithImage>
 
         <section className="section article-section">
           <div className="shell narrow-shell article-stack">

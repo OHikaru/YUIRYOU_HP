@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 
 import { SectionLead } from "@/components/ui";
 
@@ -23,11 +23,10 @@ export function HomeProcess({ supportFlow }: { supportFlow: FlowItem[] }) {
             ))}
           </div>
         </div>
-        <div className="panel panel--visual">
-          <Image src="/images/flow-support.svg" alt="診断から伴走支援までの流れ" width={960} height={540} />
+        <div className="panel panel--visual panel--visual-clean">
+          <Image src="/images/support-journey.png" alt="支援イメージ" width={1408} height={768} />
         </div>
       </div>
     </section>
   );
 }
-
