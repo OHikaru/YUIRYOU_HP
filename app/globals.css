@@ -644,12 +644,13 @@ main { overflow: clip; }
 .site-footer {
   margin-top: 0;
   padding: 56px 0 32px;
-  background: #0a1b43;
-  color: rgba(255, 255, 255, 0.86);
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fd 100%);
+  border-top: 1px solid rgba(16, 42, 114, 0.12);
+  color: rgba(16, 42, 114, 0.86);
 }
 .site-footer .eyebrow,
 .site-footer h2,
-.site-footer h3 { color: #ffffff; }
+.site-footer h3 { color: var(--brand); }
 .site-footer__grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
@@ -662,7 +663,11 @@ main { overflow: clip; }
 }
 .site-footer__brand p,
 .site-footer__bottom p,
-.site-footer__nav-block a { color: rgba(255, 255, 255, 0.86); }
+.site-footer__nav-block a { color: rgba(16, 42, 114, 0.82); }
+.site-footer__nav-block a:hover,
+.site-footer__nav-block a:focus-visible {
+  color: var(--brand-strong);
+}
 .site-footer__bottom {
   display: flex;
   flex-wrap: wrap;
@@ -670,7 +675,7 @@ main { overflow: clip; }
   gap: 16px;
   margin-top: 32px;
   padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid rgba(16, 42, 114, 0.12);
 }
 .footer-list a { text-decoration: none; }
 

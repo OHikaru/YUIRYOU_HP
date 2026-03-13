@@ -63,7 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="ja">
       <body className={notoSerifJp.variable}>
         <HtmlLangManager />
-        <a href="#main-content" className="skip-link">?????</a>
+        <a href="#main-content" className="skip-link">本文へスキップ</a>
         <JsonLd data={organizationSchema} />
         <div className="site-frame">
           <SiteHeader />

@@ -35,16 +35,13 @@ export function HomeHero({ trustChips, locale = "ja" }: HomeHeroProps) {
         </div>
         <div className="hero-stage">
           <div className="hero-visual-card hero-visual-card--home">
-            <Image src="/images/page-hero-home.png" alt={locale === "en" ? "Top visual of YUIRYOU" : "YUIRYOU株式会社のトップビジュアル"} width={1024} height={1024} priority />
-          </div>
-          <div className="hero-brief-card">
-            <p className="eyebrow">{copy.hero.agendaTitle}</p>
-            <ul className="stack-list">
-              {copy.hero.agendaItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <p className="hero-brief-card__footnote">{copy.hero.agendaFootnote}</p>
+            <Image
+              src="/images/page-hero-home.png"
+              alt={locale === "en" ? "Top visual of YUIRYOU" : "YUIRYOU株式会社のトップビジュアル"}
+              width={1024}
+              height={1024}
+              priority
+            />
           </div>
           <div className="hero-highlight-grid">
             {copy.hero.highlights.map((item) => (

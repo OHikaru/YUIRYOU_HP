@@ -19,7 +19,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="shell site-header__inner">
-        <Link href={homeHref} className="brand-mark" aria-label={locale === "en" ? "Back to home" : "??????"}>
+        <Link href={homeHref} className="brand-mark" aria-label={locale === "en" ? "Back to home" : "トップページへ戻る"}>
           <Image src="/images/logo-yuiryou.png" alt="YUIRYOU logo" width={1878} height={530} className="brand-mark__logo" priority />
           <span className="brand-mark__text">
             <strong>{brandName}</strong>

@@ -30,7 +30,7 @@ export function ServicePageTemplate({ service, locale = "ja" }: { service: Servi
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: locale === "en" ? "Home" : "???", item: absoluteUrl(withLocale("/", locale)) },
+      { "@type": "ListItem", position: 1, name: locale === "en" ? "Home" : "ホーム", item: absoluteUrl(withLocale("/", locale)) },
       { "@type": "ListItem", position: 2, name: service.title, item: absoluteUrl(path) },
     ],
   };

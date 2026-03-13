@@ -9,9 +9,9 @@ type ComparisonRow = {
 
 export function HomeComparison({ rows, locale = "ja" }: { rows: ComparisonRow[]; locale?: SiteLocale }) {
   const copy = homePageCopy[locale].comparison;
-  const criteriaLabel = locale === "en" ? "Criteria" : "???";
-  const tableAria = locale === "en" ? "Comparison table" : "???";
-  const mobileAria = locale === "en" ? "Comparison cards" : "?????";
+  const criteriaLabel = locale === "en" ? "Criteria" : "比較軸";
+  const tableAria = locale === "en" ? "Comparison table" : "比較表";
+  const mobileAria = locale === "en" ? "Comparison cards" : "比較カード";
 
   return (
     <section className="section">

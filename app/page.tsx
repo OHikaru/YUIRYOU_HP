@@ -46,7 +46,7 @@ export default async function HomePage() {
   const homeSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [{ "@type": "ListItem", position: 1, name: "???", item: absoluteUrl("/") }],
+    itemListElement: [{ "@type": "ListItem", position: 1, name: "ホーム", item: absoluteUrl("/") }],
   };
 
   return (
