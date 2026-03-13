@@ -1,6 +1,7 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
 
+import { HomeCompanyProfile } from "@/components/home/home-company-profile";
 import { homePageCopy } from "@/content/home-page-copy";
 import type { SiteLocale } from "@/lib/locale";
 import { withLocale } from "@/lib/locale";
@@ -53,6 +54,9 @@ export function HomeHero({ trustChips, locale = "ja" }: HomeHeroProps) {
             ))}
           </div>
         </div>
+      </div>
+      <div className="shell hero__principles-shell">
+        <HomeCompanyProfile locale={locale} />
       </div>
     </section>
   );

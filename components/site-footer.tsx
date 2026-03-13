@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { companyProfileCopy } from "@/content/company-profile";
 import { chromeCopy } from "@/content/page-copy";
 import { isEnglishPath, withLocale } from "@/lib/locale";
 
@@ -11,6 +12,7 @@ export function SiteFooter() {
   const pathname = usePathname() || "/";
   const locale = isEnglishPath(pathname) ? "en" : "ja";
   const copy = chromeCopy[locale];
+  const companyInfo = companyProfileCopy[locale];
 
   return (
     <footer className="site-footer">
@@ -34,6 +36,17 @@ export function SiteFooter() {
               </ul>
             </section>
           ))}
+          <section className="site-footer__nav-block site-footer__nav-block--company">
+            <h3>{companyInfo.infoTitle}</h3>
+            <dl className="footer-company-list">
+              {companyInfo.infoItems.map((item) => (
+                <div key={item.label} className="footer-company-list__row">
+                  <dt>{item.label}</dt>
+                  <dd>{item.href ? <a href={item.href}>{item.value}</a> : item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
         </div>
       </div>
       <div className="shell site-footer__bottom">

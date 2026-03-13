@@ -1,7 +1,6 @@
 ﻿import type { Metadata } from "next";
 
 import {
-  HomeCompanyProfile,
   HomeComparison,
   HomeFaq,
   HomeFinalCta,
@@ -54,7 +53,6 @@ export default async function HomePage() {
     <>
       <JsonLd data={homeSchema} />
       <HomeHero trustChips={getLocalizedTrustChips(locale)} locale={locale} />
-      <HomeCompanyProfile locale={locale} />
       <HomeIssues issues={getLocalizedIssueCards(locale)} locale={locale} />
       <HomeSupportAreas supportAreas={getLocalizedSupportAreas(locale)} locale={locale} />
       <HomeComparison rows={getLocalizedComparisonRows(locale)} locale={locale} />

@@ -308,6 +308,49 @@ main { overflow: clip; }
   margin-top: 8px;
 }
 .hero-note-block { margin-top: -4px; }
+.hero__principles-shell {
+  margin-top: clamp(36px, 5vw, 60px);
+}
+.hero-principles {
+  display: grid;
+  gap: 20px;
+}
+.hero-principle-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(280px, 0.98fr);
+  align-items: center;
+  gap: clamp(20px, 4vw, 34px);
+}
+.hero-principle-copy {
+  display: grid;
+  gap: 14px;
+}
+.hero-principle-copy h2 {
+  max-width: 18ch;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+}
+.hero-principle-copy__subheadline {
+  color: var(--ink);
+  font-weight: 600;
+}
+.hero-principle-copy__body {
+  display: grid;
+  gap: 10px;
+}
+.hero-principle-media {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  aspect-ratio: 16 / 11;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+.hero-principle-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero-note {
   font-size: 0.92rem;
   color: var(--ink-soft);
@@ -444,7 +487,7 @@ main { overflow: clip; }
 .card-grid--five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .card-grid--two,
 .card-grid--pricing,
-.card-grid--team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card-grid--team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .issue-card,
 .support-area-card,
 .fit-card,
@@ -567,7 +610,7 @@ main { overflow: clip; }
 }
 .team-card__details-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 .team-card__detail-block {
@@ -724,7 +767,7 @@ main { overflow: clip; }
 }
 .site-footer__nav {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px 32px;
 }
 .site-footer__nav-block {
@@ -762,6 +805,32 @@ main { overflow: clip; }
   max-width: 540px;
 }
 .footer-list a { text-decoration: none; }
+.footer-company-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.footer-company-list__row {
+  display: grid;
+  gap: 4px;
+}
+.footer-company-list dt {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.footer-company-list dd {
+  margin: 0;
+  color: rgba(16, 42, 114, 0.82);
+  line-height: 1.65;
+}
+.footer-company-list dd a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 
 .company-profile-grid {
   display: grid;
@@ -851,7 +920,7 @@ main { overflow: clip; }
 .contact-form__intro h2 { font-size: 1.5rem; }
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 .form-field {
@@ -899,12 +968,12 @@ main { overflow: clip; }
   border: 0;
 }
 .choice-fieldset--split {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 .choice-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 .choice-grid--large { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1058,6 +1127,9 @@ main { overflow: clip; }
   }
   .hero-title--home { max-width: 11.5ch; }
   .hero-highlight-grid { grid-template-columns: 1fr; }
+  .hero-principle-card {
+    grid-template-columns: 1fr;
+  }
   .site-footer__grid,
   .grid-two,
   .cta-banner,
@@ -1156,3 +1228,7 @@ main { overflow: clip; }
     justify-self: stretch;
   }
 }
+
+
+
+
