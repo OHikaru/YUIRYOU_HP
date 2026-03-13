@@ -20,9 +20,16 @@ const notoSerifJp = Noto_Serif_JP({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
+  applicationName: siteConfig.brandName,
   title: siteConfig.defaultTitle,
   description: siteConfig.defaultDescription,
   alternates: { canonical: "/" },
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [{ url: "/icon", type: "image/png", sizes: "96x96" }],
+    shortcut: [{ url: "/icon", type: "image/png", sizes: "96x96" }],
+    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
+  },
   openGraph: {
     title: siteConfig.defaultTitle,
     description: siteConfig.defaultDescription,
